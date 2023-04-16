@@ -2,7 +2,8 @@
   description = "Nix flakke for system config";
 
   inputs = {
-	nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.11"; 
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 };
@@ -19,29 +20,25 @@
     lib = nixpkgs.lib;
 
   in {
-    
-    homeManagerConfigurations ={
-      rkc = home-manager.lib.homeManagerConfiguration {
-	inherit system pkgs;
-        username = "rkc";
-	homeDirectory = "/home/rkc";
-        configuration = {
-	  imports = [
-	    /home/rkc/.config/nixpkgs/home.nix
-	  ];
-	};
-      };
-    };
 
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;
-
 	modules = [
           ./system/configuration.nix
 	];
       };
     };
-  };
     
+      homeConfigurations.rkc = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./users/rkc/home.nix
+        ];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+      };
+
+ };
 }

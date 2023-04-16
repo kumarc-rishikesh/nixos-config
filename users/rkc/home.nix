@@ -594,7 +594,6 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     programs.neovim = {
         enable = true;
 	coc.enable = false;
-        defaultEditor = true;
 	plugins = with pkgs.vimPlugins;[
 	    vim-sensible
 	    {
