@@ -30,15 +30,13 @@
       };
     };
     
-      homeConfigurations.rkc = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./users/rkc/home.nix
-        ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
-
- };
+    homeConfigurations.rkc = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [
+        ./users/rkc/home.nix
+      ];
+      # Optionally use extraSpecialArgs
+      # to pass through arguments to home.nix
+    };
+  };
 }
