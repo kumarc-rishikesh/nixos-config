@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   alacritty-config = import ./alacritty-config.nix;
-  xmobar-config = builtins.readFile ./xmobarrc;
+  xmobar-config = builtins.readFile ./xmobarrc.conf;
   xmonad-config = builtins.readFile ./xmonadrc.hs;
 in
 {
@@ -20,7 +20,6 @@ home.username = "rkc";
     ghc
     nitrogen
     xmobar
-    vuze
     spectacle
     ranger
     multilockscreen	
@@ -41,12 +40,10 @@ home.username = "rkc";
     esbuild
     rofi
     brightnessctl
-    standardnotes
     tdesktop
     zoom-us
     qbittorrent
     vlc
-    anbox
 ];
 
     programs.home-manager = {
