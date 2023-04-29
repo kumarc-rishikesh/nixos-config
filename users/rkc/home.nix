@@ -13,35 +13,35 @@ home.username = "rkc";
     brave
     bluetuith
     alacritty
-	haskellPackages.haskell-language-server
-	haskellPackages.hoogle
-	cabal-install
-	stack
-	ghc
-	nitrogen
-	xmobar
-	vuze
-	spectacle
-	ranger
-	multilockscreen
-	localstack
-	neofetch
+    haskellPackages.haskell-language-server
+    haskellPackages.hoogle
+    cabal-install
+    stack
+    ghc
+    nitrogen
+    xmobar
+    vuze
+    spectacle
+    ranger
+    multilockscreen	
+    localstack
+    neofetch
     vim
     vscode
     wget
-	awscli2
-	bc
-	git
-	yarn
-	python311
-	python311.pkgs.pip
-	nodejs
-	docker
+    awscli2
+    bc
+    git 
+    yarn
+    python311
+    python311.pkgs.pip
+    nodejs
+    docker
     xclip
     esbuild
     rofi
     brightnessctl
-	standardnotes
+    standardnotes
     tdesktop
     zoom-us
     qbittorrent
@@ -69,7 +69,7 @@ home.username = "rkc";
 
     xsession.windowManager.xmonad = {
         enable = true;
-	    enableContribAndExtras = true;
+        enableContribAndExtras = true;
         config = pkgs.writeText "xmonad.hs" xmonad-config ;
     };
 
@@ -93,8 +93,5 @@ home.username = "rkc";
     };
 
     home.stateVersion = "22.11";
-
-
-    
     nixpkgs.config.allowUnfree = true;
 }
