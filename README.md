@@ -5,6 +5,5 @@ My system configuration in its entirety can be recreated on a system running nix
 2. ./apply-home-manager-config 
 
 To Do:
-1. Refactor users/rkc/home.nix
-2. Improve neovim config 
-3. Improve xmonad config 
+1. Improve neovim config 
+2. Improve xmonad config 
