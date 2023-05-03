@@ -72,7 +72,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_b     ), spawn "brave")
    
     -- launch file manager
-    , ((modm .|. shiftMask, xK_f     ), spawn "ranger") 
+    , ((modm .|. shiftMask, xK_f     ), spawn "alacritty -e ranger") 
 
     -- launch file manager
     , ((modm .|. shiftMask, xK_l     ), spawn "multilockscreen -l") 
