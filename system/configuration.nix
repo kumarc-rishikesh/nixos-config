@@ -65,41 +65,41 @@
     packages = with pkgs; [];
 };
 
-services.xserver={
-  displayManager.defaultSession = "none+xmonad";
-#  displayManager.sddm.enable = true;
-#  desktopManager.plasma5.enable = true;
-  windowManager.xmonad = {
-    enable = true;
-    enableContribAndExtras = true;
+  services.xserver={
+    displayManager.defaultSession = "none+xmonad";
+#    displayManager.sddm.enable = true;
+#    desktopManager.plasma5.enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      };
     };
-  };
 
-services.logind.extraConfig = ''
-    IdleActionSec = 300;
-    IdleAction = lock;
-'';
+  services.logind.extraConfig = ''
+      IdleActionSec = 300;
+      IdleAction = lock;
+  '';
 
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     home-manager
-];
+  ];
 
- system.stateVersion = "22.11"; 
+  system.stateVersion = "22.11"; 
   boot.kernelPackages = pkgs.linuxPackages_6_1;
   hardware.bluetooth.enable = true;
   services.picom.enable = true;
 
 
-nix = {
-  package = pkgs.nixFlakes;
-  extraOptions = ''
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
     experimental-features = nix-command flakes
-  '';
+    '';
   };
 
 
-boot.binfmt.emulatedSystems =
-  ["aarch64-linux"];
-}
+  boot.binfmt.emulatedSystems =
+    ["aarch64-linux"];
+  }

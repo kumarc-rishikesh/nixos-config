@@ -272,7 +272,7 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
-        spawnOnce "nitrogen --restore &"
+        spawnOnce "~/.config/fehbg &"
         spawnOnce "picom &"
 
 ------------------------------------------------------------------------
