@@ -3,6 +3,7 @@ let
   alacritty-config = import ./alacritty-config.nix;
   xmobar-config = builtins.readFile ./xmobarrc.conf;
   xmonad-config = builtins.readFile ./xmonadrc.hs;
+  rofi-theme = builtins.readFile ./rofi-theme.nix;
 in
 {
     home.username = "rkc";
@@ -45,7 +46,7 @@ in
         vlc
         rofi-calc
 	libqalculate
-];
+    ];
 
     programs.home-manager = {
         enable = true;
@@ -88,6 +89,16 @@ in
 	    set clipboard+=unnamedplus
 	    syntax enable
 	'';
+    };
+    
+    programs.rofi ={
+        enable = true;
+	extraConfig = {	    
+            display-drun = "Applications";
+            modi = "run,calc:qalc,drun,filebrowser";
+	};
+	configPath = "~/.config/config.rasi";
+        theme = rofi-theme;
     };
 
     home.stateVersion = "22.11";
