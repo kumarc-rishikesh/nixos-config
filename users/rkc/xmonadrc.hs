@@ -65,6 +65,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --launch rofi filebrowser
     , ((modm,               xK_f     ), spawn "rofi -show filebrowser")
 
+    --launch rofi-calc
+    , ((modm,               xK_c     ), spawn "rofi -show calc -no-show-match -no-sort")
+
     -- launch notes
     , ((modm .|. shiftMask, xK_n     ), spawn "standardnotes")
 

@@ -3,7 +3,6 @@ let
   alacritty-config = import ./alacritty-config.nix;
   xmobar-config = builtins.readFile ./xmobarrc.conf;
   xmonad-config = builtins.readFile ./xmonadrc.hs;
-  wallpaper = builtins.fetchurl "https://raw.githubusercontent.com/Zebreus/nixos-dark-wallpaper/master/thinknix-d.svg"
 in
 {
     home.username = "rkc";
@@ -44,7 +43,9 @@ in
         zoom-us
         qbittorrent
         vlc
-    ];
+        rofi-calc
+	libqalculate
+];
 
     programs.home-manager = {
         enable = true;
