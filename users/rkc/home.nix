@@ -3,7 +3,6 @@ let
   alacritty-config = import ./alacritty-config.nix;
   xmobar-config = builtins.readFile ./xmobarrc.conf;
   xmonad-config = builtins.readFile ./xmonadrc.hs;
-  rofi-theme = builtins.readFile ./rofi-theme.nix;
 in
 {
     home.username = "rkc";
@@ -96,9 +95,8 @@ in
 	extraConfig = {	    
             display-drun = "Applications";
             modi = "run,calc:qalc,drun,filebrowser";
-	};
-	configPath = "~/.config/config.rasi";
-        theme = rofi-theme;
+        };
+        theme = "gruvbox-dark-hard";
     };
 
     home.stateVersion = "22.11";
