@@ -37,13 +37,11 @@ in
         docker
         xclip
         esbuild
-        rofi
         brightnessctl
         tdesktop
         zoom-us
         qbittorrent
         vlc
-        rofi-calc
 	libqalculate
     ];
 
@@ -92,9 +90,10 @@ in
     
     programs.rofi ={
         enable = true;
-	extraConfig = {	    
+	plugins = [ pkgs.rofi-calc ];
+        extraConfig = {	    
             display-drun = "Applications";
-            modi = "run,calc:qalc,drun,filebrowser";
+            modi = "run,calc,drun,filebrowser";
         };
         theme = "gruvbox-dark-hard";
     };
