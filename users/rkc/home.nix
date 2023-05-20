@@ -8,7 +8,8 @@ in
     home.username = "rkc";
     home.homeDirectory = "/home/rkc";
     home.packages = with pkgs; [
-        evince
+        postman
+	evince
         firefox
         brave
         bluetuith
