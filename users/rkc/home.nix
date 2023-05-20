@@ -43,6 +43,7 @@ in
         qbittorrent
         vlc
 	libqalculate
+        helix
     ];
 
     programs.home-manager = {
@@ -88,7 +89,7 @@ in
 	'';
     };
     
-    programs.rofi ={
+    programs.rofi = {
         enable = true;
 	plugins = [ pkgs.rofi-calc ];
         extraConfig = {	    
@@ -96,6 +97,10 @@ in
             modi = "run,calc,drun,filebrowser";
         };
         theme = "gruvbox-dark-hard";
+    };
+
+    programs.helix = {
+        enable = true;
     };
 
     home.stateVersion = "22.11";
