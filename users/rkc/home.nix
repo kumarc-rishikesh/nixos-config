@@ -45,6 +45,7 @@ in
         vlc
 	libqalculate
         helix
+	todo
     ];
 
     programs.home-manager = {
