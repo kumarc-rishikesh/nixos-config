@@ -21,7 +21,7 @@ in
         ghc
         feh
         xmobar
-        spectacle
+        ksnip
         ranger
         multilockscreen
         neofetch

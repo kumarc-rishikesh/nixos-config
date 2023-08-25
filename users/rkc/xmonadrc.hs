@@ -77,11 +77,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch file manager
     , ((modm .|. shiftMask, xK_f     ), spawn "alacritty -e ranger") 
 
-    -- launch file manager
+    -- lock screen
     , ((modm .|. shiftMask, xK_l     ), spawn "multilockscreen -l") 
 
-    -- launch spectacle
-    , ((modm .|. shiftMask, xK_s     ), spawn "spectacle")
+    -- launch ksnip
+    , ((modm .|. shiftMask, xK_s     ), spawn "ksnip -r")
     
     -- mute/unmute volume
     , ((0,                0x1008ff12 ), spawn "amixer set Master toggle")
