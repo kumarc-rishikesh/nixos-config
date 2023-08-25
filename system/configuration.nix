@@ -14,8 +14,8 @@
 
   networking.networkmanager.enable = true;
 
-  time.timeZone = "Asia/Kolkata";
-
+#  time.timeZone = "Asia/Kolkata";
+  time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_IN";
 
   i18n.extraLocaleSettings = {
