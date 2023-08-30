@@ -46,6 +46,7 @@ in
 	libqalculate
         helix
 	todo
+	tlp
     ];
 
     programs.home-manager = {
