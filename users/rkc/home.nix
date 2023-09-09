@@ -46,7 +46,9 @@ in
 	libqalculate
         helix
 	todo
+	winePackages.unstableFull
 	tlp
+	libreoffice
     ];
 
     programs.home-manager = {
