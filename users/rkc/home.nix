@@ -46,9 +46,9 @@ in
 	libqalculate
         helix
 	todo
-	winePackages.unstableFull
 	tlp
 	libreoffice
+        gltron
     ];
 
     programs.home-manager = {
@@ -107,7 +107,7 @@ in
         enable = true;
     };
 
-    home.stateVersion = "22.11";
+       home.stateVersion = "22.11";
     nixpkgs.config.allowUnfree = true;
 
 }

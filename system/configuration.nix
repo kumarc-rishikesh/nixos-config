@@ -31,18 +31,77 @@
     LC_TIME = "en_IN";
   };
 
-  services.xserver.enable = true;
-
-  services.xserver.libinput = {
+  services.xserver={
     enable = true;
-    touchpad.naturalScrolling = true;
-    };
-
-  services.xserver = {
     layout = "us";
     xkbVariant = "";
+    displayManager.defaultSession = "none+xmonad";
+#    displayManager.defaultSession = "plasma";
+#    displayManager.sddm.enable = true;
+#    desktopManager.plasma5.enable = true;
+    libinput = {
+        enable = true;
+        touchpad.naturalScrolling = true;
+        };
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      };
+    };
+  
+  services.tlp = {
+    enable = true;
+    settings = {
+      TLP_DEFAULT_MODE = "AC";
+      TLP_PERSISTENT_DEFAULT = 0;
+      DISK_IDLE_SECS_ON_AC = 0;
+      DISK_IDLE_SECS_ON_BAT = 2;
+      MAX_LOST_WORK_SECS_ON_AC = 15;
+      MAX_LOST_WORK_SECS_ON_BAT = 60;
+      CPU_HWP_ON_AC = "performance";
+      CPU_HWP_ON_BAT = "balance_power";
+      SCHED_POWERSAVE_ON_AC = 0;
+      SCHED_POWERSAVE_ON_BAT = 1;
+      NMI_WATCHDOG = 0;
+      ENERGY_PERF_POLICY_ON_AC = "performance";
+      ENERGY_PERF_POLICY_ON_BAT = "powersave";
+      DISK_APM_LEVEL_ON_AC = "254 254";
+      DISK_APM_LEVEL_ON_BAT = "128 128";
+      SATA_LINKPWR_ON_AC = "max_performance";
+      SATA_LINKPWR_ON_BAT = "min_power";
+      PCIE_ASPM_ON_AC = "performance";
+      PCIE_ASPM_ON_BAT = "powersave";
+      RADEON_POWER_PROFILE_ON_AC = "high";
+      SOUND_POWER_SAVE_CONTROLLER = "Y";
+      RADEON_POWER_PROFILE_ON_BAT = "low";
+      RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
+      RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
+      WIFI_PWR_ON_AC = "on";
+      WIFI_PWR_ON_BAT = "on";
+#      WOL_DISABLE = "Y";
+      SOUND_POWER_SAVE_ON_AC = 0;
+      SOUND_POWER_SAVE_ON_BAT = 1;
+#      BAY_POWEROFF_ON_AC = 0;
+#      BAY_POWEROFF_ON_BAT = 0;
+#      BAY_DEVICE = "sr0";
+      RUNTIME_PM_ON_AC = "on";
+      RUNTIME_PM_ON_BAT = "auto";
+#      USB_AUTOSUSPEND = 1;
+#      USB_BLACKLIST_BTUSB = 0;
+#      USB_BLACKLIST_PHONE = 0;
+#      USB_BLACKLIST_WWAN = 1;
+      RESTORE_DEVICE_STATE_ON_STARTUP = 1;
+      START_CHARGE_THRESH_BAT0 = 75;
+      STOP_CHARGE_THRESH_BAT0 = 85;
+#      DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
+#      DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
+#      DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
+#      DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi wwan";
+#      DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT = "";
+#      DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT = "";
+      };
   };
-
+ 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 
@@ -64,16 +123,6 @@
     extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [];
 };
-
-  services.xserver={
-    displayManager.defaultSession = "none+xmonad";
-#    displayManager.sddm.enable = true;
-#    desktopManager.plasma5.enable = true;
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      };
-    };
 
   services.logind.extraConfig = ''
       IdleActionSec = 300;
@@ -102,4 +151,4 @@
 
   boot.binfmt.emulatedSystems =
     ["aarch64-linux"];
-  }
+}
