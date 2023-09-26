@@ -14,11 +14,6 @@ in
         brave
         bluetuith
         alacritty
-        haskellPackages.haskell-language-server
-        haskellPackages.hoogle
-        cabal-install
-        stack
-        ghc
         feh
         xmobar
         ksnip
@@ -39,16 +34,15 @@ in
         xclip
         esbuild
         brightnessctl
-        tdesktop
         zoom-us
         qbittorrent
         vlc
 	libqalculate
-        helix
 	todo
 	tlp
 	libreoffice
         gltron
+        qemu
     ];
 
     programs.home-manager = {
@@ -107,7 +101,7 @@ in
         enable = true;
     };
 
-       home.stateVersion = "22.11";
+    home.stateVersion = "22.11";
     nixpkgs.config.allowUnfree = true;
 
 }

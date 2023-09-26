@@ -4,10 +4,6 @@ My system configuration in its entirety can be recreated on a system running nix
 1. ./apply-nixos-config
 2. ./apply-home-manager-config 
 
-WIP:
-1. feh desktop bg using home manager 
-
 To Do:
-1. Rofi dynamic search
-2. Improve neovim config 
-3. Improve xmonad config 
+1. Improve neovim config 
+2. Improve xmonad config 
