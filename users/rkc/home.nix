@@ -43,6 +43,8 @@ in
 	libreoffice
         gltron
         qemu
+	aqemu
+        virt-viewer
     ];
 
     programs.home-manager = {
