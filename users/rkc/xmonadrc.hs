@@ -9,6 +9,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Layout.Spacing
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.WindowSwallowing
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -256,7 +257,8 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "Termite") (return True)
+
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -317,7 +319,7 @@ defaults = def {
       -- hooks, layouts
         layoutHook         = myLayout,
         manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
+        handleEventHook    = myHandleEventHook,
         logHook            = myLogHook,
         startupHook        = myStartupHook
     }`additionalKeys`
