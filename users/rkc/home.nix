@@ -8,41 +8,45 @@ in
     home.username = "rkc";
     home.homeDirectory = "/home/rkc";
     home.packages = with pkgs; [
-        postman
-	evince
-        firefox
-        brave
+        xmobar
         bluetuith
         alacritty
+        picom-jonaburg
         feh
-        xmobar
         ksnip
         ranger
         multilockscreen
         neofetch
         vim
-        vscode
         wget
-        awscli2
         bc
         git 
-        yarn
-        python311
-        python311.pkgs.pip
-        nodejs
-        docker
         xclip
-        esbuild
         brightnessctl
-        zoom-us
-        qbittorrent
-        vlc
 	libqalculate
 	todo
 	tlp
-	libreoffice
-        gltron
         qemu
+    ] ++ [
+        nodejs
+        awscli2
+	nodePackages.npm
+        esbuild
+        yarn
+        docker
+        python311
+        python311.pkgs.pip
+        googler
+    ] ++ [
+        postman
+        qbittorrent
+        gltron
+	libreoffice
+        vlc
+        firefox
+        brave
+        vscode
+	evince
     ];
 
     programs.home-manager = {

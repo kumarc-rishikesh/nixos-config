@@ -275,6 +275,7 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
+        spawnOnce "feh --bg-fill ~/Pictures/thinknix-d.jpg"
         spawnOnce "~/.config/fehbg &"
         spawnOnce "picom &"
 
