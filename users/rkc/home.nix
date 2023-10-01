@@ -74,8 +74,12 @@ in
     services.picom = {
         enable = true;
 	fade = true;
-	inactiveOpacity = 0.8;
-	activeOpacity = 0.95;
+    };
+
+    services.screen-locker = {
+        enable  = true;
+	inactiveInterval = 1;
+	lockCmd = "multilockscreen -l";
     };
 
     programs.neovim = {
@@ -102,7 +106,7 @@ in
 	plugins = [ pkgs.rofi-calc ];
         extraConfig = {	    
             display-drun = "Applications";
-            modi = "run,calc,drun,filebrowser";
+		modi = "run,calc,drun,filebrowser";
         };
         theme = "gruvbox-dark-hard";
     };
