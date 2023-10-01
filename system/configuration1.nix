@@ -2,14 +2,13 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+    ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+#  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -123,7 +122,7 @@
     description = "Rishikesh Kumar";
     extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [];
-  };
+};
 
   services.logind.extraConfig = ''
       IdleActionSec = 300;
@@ -134,7 +133,6 @@
 
   environment.systemPackages = with pkgs; [
     home-manager
-    git
   ];
 
   system.stateVersion = "23.05"; 
