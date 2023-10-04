@@ -13,6 +13,8 @@
 
   networking.hostName = "nixos"; # Define your hostname.
 
+  virtualisation.virtualbox.host.enable = true;
+
   networking.networkmanager.enable = true;
 
 #  time.timeZone = "Asia/Kolkata";
@@ -49,6 +51,8 @@
       enableContribAndExtras = true;
       };
     };
+  
+  environment.shells = with pkgs; [ bash ];
   
   services.tlp = {
     enable = true;

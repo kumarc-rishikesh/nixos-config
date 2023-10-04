@@ -36,6 +36,8 @@ in
         python311
         python311.pkgs.pip
         googler
+        gparted
+        wine
     ] ++ [
         postman
         qbittorrent
