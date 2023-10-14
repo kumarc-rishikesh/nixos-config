@@ -73,7 +73,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_n     ), spawn "standardnotes")
 
     -- launch brave
-    , ((modm,               xK_b     ), spawn "brave")
+    , ((modm,               xK_b     ), spawn "firefox")
    
     -- launch file manager
     , ((modm .|. shiftMask, xK_f     ), spawn "alacritty -e ranger") 

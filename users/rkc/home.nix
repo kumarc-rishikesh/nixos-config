@@ -22,14 +22,14 @@ in
         git 
         xclip
         brightnessctl
-	libqalculate
-	todo
-	tlp
+        libqalculate
+        todo
+        tlp
         qemu
     ] ++ [
         nodejs
         awscli2
-	nodePackages.npm
+        nodePackages.npm
         esbuild
         yarn
         docker
@@ -39,15 +39,14 @@ in
         gparted
         wine
     ] ++ [
-        postman
         qbittorrent
         gltron
-	libreoffice
+        libreoffice
         vlc
         firefox
         brave
         vscode
-	evince
+        evince
     ];
 
     programs.home-manager = {
@@ -75,26 +74,27 @@ in
 
     services.picom = {
         enable = true;
-	fade = true;
+	      fade = true;
     };
 
     services.screen-locker = {
         enable  = true;
-	inactiveInterval = 1;
-	lockCmd = "multilockscreen -l";
+	      inactiveInterval = 1;
+	      lockCmd = "multilockscreen -l";
     };
 
     programs.neovim = {
         enable = true;
-	coc.enable = false;
-	plugins = with pkgs.vimPlugins;[
-	    vim-sensible
+	      coc.enable = false;
+	      plugins = with pkgs.vimPlugins;[
+	          vim-sensible
 	    {
 	        plugin = nerdtree;
-		config = "let g:NERDTreeMinimalUI = 1";
+		      config = "let g:NERDTreeMinimalUI = 1";
 	    }
 	    purescript-vim
 	    dracula-nvim
+	    nvchad
 	];
 	viAlias = true;
 	extraConfig = ''
@@ -105,19 +105,25 @@ in
     
     programs.rofi = {
         enable = true;
-	plugins = [ pkgs.rofi-calc ];
+	      plugins = [ pkgs.rofi-calc ];
         extraConfig = {	    
             display-drun = "Applications";
-		modi = "run,calc,drun,filebrowser";
+		    modi = "run,calc,drun,filebrowser";
         };
         theme = "gruvbox-dark-hard";
     };
 
     programs.helix = {
         enable = true;
+        settings = {
+            theme = "gruvbox_dark_hard";
+            editor = {
+                line-number = "relative";
+                lsp.display-messages = true;
+            };
+        };
     };
 
-    home.stateVersion = "22.11";
     nixpkgs.config.allowUnfree = true;
 
 }

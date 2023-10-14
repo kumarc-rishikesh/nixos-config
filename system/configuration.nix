@@ -112,15 +112,43 @@
 
   services.printing.enable = true;
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
+#  sound.enable = true;
+#  hardware.bluetooth.enable = true;
+#  hardware.pulseaudio.enable = false;
+#  security.rtkit.enable = true;
+#  services.pipewire = {
+#    enable = true;
+#    alsa.enable = true;
+#    alsa.support32Bit = true;
+#    pulse.enable = false;
+#  };
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+  hardware.pulseaudio = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = false;
+    package = pkgs.pulseaudioFull;
+    configFile = pkgs.writeText "default.pa" ''
+      load-module module-bluetooth-policy
+      load-module module-bluetooth-discover
+      ## module fails to load with 
+      ##   module-bluez5-device.c: Failed to get device path from module arguments
+      ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
+      # load-module module-bluez5-device
+      # load-module module-bluez5-discover
+    '';
+    extraConfig = "
+      load-module module-switch-on-connect
+      ";
+
   };
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
+
 
   users.users.rkc = {
     isNormalUser = true;
@@ -143,7 +171,6 @@
 
   system.stateVersion = "23.05"; 
   boot.kernelPackages = pkgs.linuxPackages_6_1;
-  hardware.bluetooth.enable = true;
   services.picom.enable = true;
 
 
