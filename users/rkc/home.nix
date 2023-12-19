@@ -35,19 +35,23 @@ in
         docker
         python311
         python311.pkgs.pip
-        googler
+        poetry
         gparted
         wine
     ] ++ [
+        github-desktop
         qbittorrent
         gltron
         libreoffice
+        discord
         vlc
         firefox
         brave
         vscode
         evince
-    ];
+        zoom-us
+        okular
+        ];
 
     programs.home-manager = {
         enable = true;
@@ -124,6 +128,7 @@ in
         };
     };
 
+    home.stateVersion = "23.05";
     nixpkgs.config.allowUnfree = true;
 
 }

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-home-manager switch --flake ~/.dotfiles/.#rkc 
+home-manager switch --impure --flake ~/.dotfiles/.#rkc 
