@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let 
+  network_connections = import /home/rkc/.config/networks.nix;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,7 +15,12 @@
 
   networking.hostName = "nixos"; # Define your hostname.
 
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
+  networking.wireless = {
+    enable = true;
+    userControlled.enable = true;
+    networks = network_connections;
+   };
 
 #  time.timeZone = "Asia/Kolkata";
   time.timeZone = "America/New_York";
@@ -167,7 +174,7 @@
     git
   ];
 
-  system.stateVersion = "23.05"; 
+  system.stateVersion = "23.11"; 
   services.picom.enable = true;
 
 

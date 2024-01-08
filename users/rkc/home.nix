@@ -37,9 +37,9 @@ in
         python311.pkgs.pip
         poetry
         gparted
-        wine
+      # wine
     ] ++ [
-        github-desktop
+        # github-desktop
         qbittorrent
         gltron
         libreoffice
@@ -49,8 +49,8 @@ in
         brave
         vscode
         evince
-        zoom-us
-        okular
+        # zoom-us
+        # okular
         ];
 
     programs.home-manager = {
