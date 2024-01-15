@@ -49,7 +49,7 @@ in
         brave
         vscode
         evince
-        # zoom-us
+        zoom-us
         # okular
         ];
 
