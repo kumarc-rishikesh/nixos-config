@@ -25,6 +25,7 @@ in
         libqalculate
         todo
         tlp
+        wpa_supplicant_gui
         qemu
     ] ++ [
         nodejs

@@ -8,14 +8,12 @@ in
       /etc/nixos/hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
 
   networking.hostName = "nixos"; # Define your hostname.
 
-  # networking.networkmanager.enable = true;
   networking.wireless = {
     enable = true;
     userControlled.enable = true;
@@ -44,9 +42,6 @@ in
     layout = "us";
     xkbVariant = "";
     displayManager.defaultSession = "none+xmonad";
-#    displayManager.defaultSession = "plasma";
-#    displayManager.sddm.enable = true;
-#    desktopManager.plasma5.enable = true;
     libinput = {
         enable = true;
         touchpad.naturalScrolling = true;
@@ -88,28 +83,14 @@ in
       RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
       WIFI_PWR_ON_AC = "on";
       WIFI_PWR_ON_BAT = "on";
-#      WOL_DISABLE = "Y";
       SOUND_POWER_SAVE_ON_AC = 0;
       SOUND_POWER_SAVE_ON_BAT = 1;
-#      BAY_POWEROFF_ON_AC = 0;
-#      BAY_POWEROFF_ON_BAT = 0;
-#      BAY_DEVICE = "sr0";
       RUNTIME_PM_ON_AC = "on";
       RUNTIME_PM_ON_BAT = "auto";
-#      USB_AUTOSUSPEND = 1;
-#      USB_BLACKLIST_BTUSB = 0;
-#      USB_BLACKLIST_PHONE = 0;
-#      USB_BLACKLIST_WWAN = 1;
       RESTORE_DEVICE_STATE_ON_STARTUP = 1;
       START_CHARGE_THRESH_BAT0 = 75;
       STOP_CHARGE_THRESH_BAT0 = 85;
-#      DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
-#      DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
-#      DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
-#      DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi wwan";
-#      DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT = "";
-#      DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT = "";
-      };
+     };
   };
  
   programs.neovim.enable = true;
@@ -129,32 +110,6 @@ in
    alsa.support32Bit = true;
    pulse.enable = false;
  };
-
-  # hardware.bluetooth.enable = true;
-  # hardware.bluetooth.powerOnBoot = true;
-  # services.blueman.enable = true;
-  # hardware.pulseaudio = {
-  #   enable = true;
-  #   package = pkgs.pulseaudioFull;
-  #   configFile = pkgs.writeText "default.pa" ''
-  #     load-module module-bluetooth-policy
-  #     load-module module-bluetooth-discover
-  #     ## module fails to load with 
-  #     ##   module-bluez5-device.c: Failed to get device path from module arguments
-  #     ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
-  #     # load-module module-bluez5-device
-  #     # load-module module-bluez5-discover
-  #   '';
-  #   extraConfig = "
-  #     load-module module-switch-on-connect
-  #     ";
-
-  # };
-  # hardware.bluetooth.settings = {
-  #   General = {
-  #     Enable = "Source,Sink,Media,Socket";
-  #   };
-  # };
 
 
   users.users.rkc = {
