@@ -33,11 +33,11 @@ in
         nodePackages.npm
         esbuild
         yarn
-        docker
         python311
         python311.pkgs.pip
         poetry
         gparted
+        pylyzer
       # wine
     ] ++ [
         # github-desktop
@@ -126,10 +126,10 @@ in
                 line-number = "relative";
                 lsp.display-messages = true;
             };
-        };
+        };    
     };
 
-    home.stateVersion = "23.05";
+    home.stateVersion = "23.11";
     nixpkgs.config.allowUnfree = true;
 
 }

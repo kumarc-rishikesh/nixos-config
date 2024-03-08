@@ -51,6 +51,7 @@ in
       enableContribAndExtras = true;
       };
     };
+  services.picom.enable = true;
   
   environment.shells = with pkgs; [ bash ];
   
@@ -132,7 +133,6 @@ in
   ];
 
   system.stateVersion = "23.11"; 
-  services.picom.enable = true;
 
 
   nix = {
@@ -142,6 +142,14 @@ in
     '';
   };
 
+  virtualisation.docker = {
+    enable = true;
+    rootless.enable = true;
+  };
+
+  services.postgresql = {
+    enable = true;
+  };
 
   boot.binfmt.emulatedSystems =
     ["aarch64-linux"];
