@@ -27,8 +27,10 @@ in
         tlp
         wpa_supplicant_gui
         qemu
+        gparted
     ] ++ [
         nodejs
+        rustc
         awscli2
         nodePackages.npm
         esbuild
@@ -36,9 +38,8 @@ in
         python311
         python311.pkgs.pip
         poetry
-        gparted
-        pylyzer
-      # wine
+        python311Packages.python-lsp-server
+        nodePackages.typescript-language-server
     ] ++ [
         # github-desktop
         qbittorrent
