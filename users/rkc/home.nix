@@ -40,6 +40,20 @@ in
         poetry
         python311Packages.python-lsp-server
         nodePackages.typescript-language-server
+        rust-analyzer
+        nil
+        cmake
+        gcc
+        lldb
+        cargo
+        haskellPackages.haskell-language-server
+        haskellPackages.hoogle
+        cabal-install
+        cabal2nix
+        # haskellPackages.phoityne-vscode
+        stack
+        ghc
+        miller
     ] ++ [
         # github-desktop
         qbittorrent
