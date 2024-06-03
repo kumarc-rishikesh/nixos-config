@@ -50,8 +50,11 @@ in
         haskellPackages.hoogle
         cabal-install
         cabal2nix
-        # haskellPackages.phoityne-vscode
+        zlib
+        zlib.dev
+        haskellPackages.zlib
         stack
+        ngrok
         ghc
         miller
     ] ++ [
@@ -66,6 +69,7 @@ in
         vscode
         evince
         zoom-us
+        obs-studio
         # okular
         ];
 
