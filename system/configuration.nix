@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let 
   network_connections = import /home/rkc/.config/networks.nix;
 in
@@ -127,9 +127,10 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    home-manager
-    git
+  environment.systemPackages = [
+    inputs.agenix.packages."x86_64-linux".default
+    pkgs.home-manager
+    pkgs.git
   ];
 
   system.stateVersion = "24.05"; 

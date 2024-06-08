@@ -6,9 +6,10 @@
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-23.11"; 
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
 };
 
-  outputs = { nixpkgs, home-manager, ... }: 
+  outputs = { nixpkgs, home-manager,agenix, ... } @inputs : 
   let 
     system = "x86_64-linux";
 
@@ -24,9 +25,12 @@
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;
-	modules = [
+        modules = [
           ./system/configuration.nix
-	];
+	      ];
+        specialArgs = {
+          inherit inputs; 
+        };
       };
     };
     
