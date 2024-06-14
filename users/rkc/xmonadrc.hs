@@ -1,7 +1,12 @@
 import XMonad
 import Data.Monoid
 import System.Exit
-import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.EZConfig
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Util.Ungrab
+import XMonad.Util.Loggers
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Magnifier
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import XMonad.Hooks.DynamicLog
@@ -56,114 +61,75 @@ myFocusedBorderColor = "#f70509"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-
     -- launch rofi run
-    , ((modm,               xK_p     ), spawn "rofi -show run")
-    
+    , ((modm,               xK_p     ), spawn "rofi -show run")    
     --launch rofi filebrowser
     , ((modm,               xK_f     ), spawn "rofi -show filebrowser")
-
     --launch rofi-calc
     , ((modm,               xK_c     ), spawn "rofi -show calc -no-show-match -no-sort")
-
     -- launch notes
     , ((modm .|. shiftMask, xK_n     ), spawn "standardnotes")
-
     -- launch brave
     , ((modm,               xK_b     ), spawn "brave")
-   
     -- launch file manager
     , ((modm .|. shiftMask, xK_f     ), spawn "alacritty -e ranger") 
-
     -- lock screen
     , ((modm .|. shiftMask, xK_l     ), spawn "multilockscreen -l") 
-
     -- launch ksnip
     , ((modm .|. shiftMask, xK_s     ), spawn "ksnip -r")
-    
     -- mute/unmute volume
     , ((0,                0x1008ff12 ), spawn "amixer set Master toggle")
-    
     -- reduce volume by 5%
     , ((0,                0x1008ff11 ), spawn "amixer set Master 5%-")
-
     -- increase volume by 5%
     , ((0,                0x1008ff13 ), spawn "amixer set Master 5%+")
-
      -- reduce brightness by 5%
     , ((0,                0x1008ff03 ), spawn "brightnessctl set 5%-")
-
     -- increase brightness by 5%
     , ((0,                0x1008ff02 ), spawn "brightnessctl set +5%")
-
-   
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
-
      -- Rotate through the available layout algorithms
     , ((modm,               xK_space ), sendMessage NextLayout)
-
     --  Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
-
     -- Move focus to the next window
     , ((modm,               xK_Tab   ), windows W.focusDown)
-
     -- Move focus to the next window
     , ((modm,               xK_j     ), windows W.focusDown)
-
     -- Move focus to the previous window
     , ((modm,               xK_k     ), windows W.focusUp  )
-
     -- Move focus to the master window
     , ((modm,               xK_m     ), windows W.focusMaster  )
-
     -- Swap the focused window and the master window
     , ((modm,               xK_Return), windows W.swapMaster)
-
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
-
     -- Swap the focused window with the previous window
     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
-
     -- Shrink the master area
     , ((modm,               xK_h     ), sendMessage Shrink)
-
     -- Expand the master area
     , ((modm,               xK_l     ), sendMessage Expand)
-
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-
     -- Increment the number of windows in the master area
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
-
+    --    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
-
-    -- Run xmessage with a summary of the default keybindings (useful for beginners)
-    , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
-    
-   ]
+    ]
     ++
 
     --
@@ -214,19 +180,26 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+-- myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+--   where
+--      -- default tiling algorithm partitions the screen into two panes
+--      tiled   = Tall nmaster delta ratio
+
+--      -- The default number of windows in the master pane
+--      nmaster = 1
+
+--      -- Default proportion of screen occupied by master pane
+--      ratio   = 1/2
+
+--      -- Percent of screen to increment by when resizing panes
+--      delta   = 3/100
+myLayout = tiled ||| Mirror tiled ||| Full ||| threeCol
   where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
-
-     -- The default number of windows in the master pane
-     nmaster = 1
-
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
-
-     -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
+    threeCol = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
+    tiled    = Tall nmaster delta ratio
+    nmaster  = 1      -- Default number of windows in the master pane
+    ratio    = 1/2    -- Default proportion of screen occupied by master pane
+    delta    = 3/100  -- Percent of screen to increment by when resizing panes
 ------------------------------------------------------------------------
 -- Window rules:
 
@@ -277,7 +250,7 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
-        spawnOnce "feh --bg-fill ~/Pictures/thinknix-d.jpg"
+        spawnOnce "feh --bg-fill ~/Pictures/thinknix-d.jpg &"
         spawnOnce "~/.config/fehbg &"
         spawnOnce "picom &"
 
@@ -286,14 +259,44 @@ myStartupHook = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = do 
---    xmonad  $ def
---      { layoutHook = spacingWithEdge 2 $ myLayout} *>
-    xmproc <- spawnPipe "xmobar ~/.config/xmobar/.xmobarrc"
-    xmonad $ docks defaults
 
+myXmobarPP :: PP
+myXmobarPP = def
+    {
+      ppSep             = magenta " • "
+    , ppTitleSanitize   = xmobarStrip
+    , ppCurrent         = xmobarColor "#ff79c6" "" . wrap "•" "•"
+    , ppHidden          = white . wrap " " ""
+    , ppHiddenNoWindows = lowWhite . wrap " " ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    , ppOrder           = \[ws, _, _, _] -> [ws]
+    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    }
+  where
+    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
 
+    -- | Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 20
 
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor "#ff79c6" ""
+    blue     = xmobarColor "#bd93f9" ""
+    white    = xmobarColor "#f8f8f2" ""
+    yellow   = xmobarColor "#f1fa8c" ""
+    red      = xmobarColor "#ff5555" ""
+    lowWhite = xmobarColor "#404040" ""
+
+main :: IO ()
+main = xmonad
+     . ewmh
+     . withEasySB (statusBarProp "xmobar ~/.config/xmobar/.xmobarrc" (pure myXmobarPP)) toggleStrutsKey
+     $ defaults
+  where
+    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+    toggleStrutsKey XConfig{ modMask = m } = (m, xK_g)
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -328,55 +331,3 @@ defaults = def {
         ((0                                    ,0xE030E0AE) , spawn "amixer -q sset Master 2%-"),
         ((0                                    ,0xE030E0A0) , spawn "amixer set Master toggle")
     ]
-
-
--- | Finally, a copy of the default bindings in simple textual tabular format.
-help :: String
-help = unlines ["The default modifier key is 'alt'. Default keybindings:",
-    "",
-    "-- launching and killing programs",
-    "mod-Shift-Enter  Launch xterminal",
-    "mod-p            Launch dmenu",
-    "mod-Shift-p      Launch gmrun",
-    "mod-Shift-c      Close/kill the focused window",
-    "mod-Space        Rotate through the available layout algorithms",
-    "mod-Shift-Space  Reset the layouts on the current workSpace to default",
-    "mod-n            Resize/refresh viewed windows to the correct size",
-    "",
-    "-- move focus up or down the window stack",
-    "mod-Tab        Move focus to the next window",
-    "mod-Shift-Tab  Move focus to the previous window",
-    "mod-j          Move focus to the next window",
-    "mod-k          Move focus to the previous window",
-    "mod-m          Move focus to the master window",
-    "",
-    "-- modifying the window order",
-    "mod-Return   Swap the focused window and the master window",
-    "mod-Shift-j  Swap the focused window with the next window",
-    "mod-Shift-k  Swap the focused window with the previous window",
-    "",
-    "-- resizing the master/slave ratio",
-    "mod-h  Shrink the master area",
-    "mod-l  Expand the master area",
-    "",
-    "-- floating layer support",
-    "mod-t  Push window back into tiling; unfloat and re-tile it",
-    "",
-    "-- increase or decrease number of windows in the master area",
-    "mod-comma  (mod-,)   Increment the number of windows in the master area",
-    "mod-period (mod-.)   Deincrement the number of windows in the master area",
-    "",
-    "-- quit, or restart",
-    "mod-Shift-q  Quit xmonad",
-    "mod-q        Restart xmonad",
-    "mod-[1..9]   Switch to workSpace N",
-    "",
-    "-- Workspaces & screens",
-    "mod-Shift-[1..9]   Move client to workspace N",
-    "mod-{w,e,r}        Switch to physical/Xinerama screens 1, 2, or 3",
-    "mod-Shift-{w,e,r}  Move client to screen 1, 2, or 3",
-    "",
-    "-- Mouse bindings: default actions bound to mouse events",
-    "mod-button1  Set the window to floating mode and move by dragging",
-    "mod-button2  Raise the window to the top of the stack",
-    "mod-button3  Set the window to floating mode and resize by dragging"]

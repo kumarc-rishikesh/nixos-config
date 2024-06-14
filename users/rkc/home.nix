@@ -12,6 +12,7 @@ in
         bluetuith
         alacritty
         feh
+        alsa-utils
         ksnip
         ranger
         multilockscreen
@@ -146,6 +147,16 @@ in
                 lsp.display-messages = true;
             };
         };    
+    };
+
+    programs = {
+        direnv = {
+          enable = true;
+          enableBashIntegration = true; 
+          nix-direnv.enable = true;
+        };
+
+        bash.enable = true;
     };
 
     home.stateVersion = "23.11";
