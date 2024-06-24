@@ -149,15 +149,17 @@ in
         };    
     };
 
-    programs = {
-        direnv = {
-          enable = true;
-          enableBashIntegration = true; 
-          nix-direnv.enable = true;
-        };
-
-        bash.enable = true;
+    programs.direnv = {
+        enable = true;
+        enableBashIntegration = true; 
+        nix-direnv.enable = true;
     };
+    programs.bash.enable = true;
+
+    # programs.fzf ={ 
+    #     enable = true;
+    #     enableBashIntegration = true;
+    # };
 
     home.stateVersion = "23.11";
     nixpkgs.config.allowUnfree = true;
