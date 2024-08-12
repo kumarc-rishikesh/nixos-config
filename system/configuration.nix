@@ -38,21 +38,12 @@ in
   };
 
   services.xserver={
-    enable = true;
     layout = "us";
     xkbVariant = "";
-    displayManager.defaultSession = "none+xmonad";
-    libinput = {
-        enable = true;
-        touchpad.naturalScrolling = true;
-        };
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      };
+    enable = true;
+    displayManager.sddm.enable = true;
     };
-  services.picom.enable = true;
-  
+ 
   environment.shells = with pkgs; [ bash ];
   
   services.tlp = {
@@ -83,7 +74,7 @@ in
       RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
       RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
       WIFI_PWR_ON_AC = "on";
-      WIFI_PWR_ON_BAT = "on";
+      # WIFI_PWR_ON_AC = "on";
       SOUND_POWER_SAVE_ON_AC = 0;
       SOUND_POWER_SAVE_ON_BAT = 1;
       RUNTIME_PM_ON_AC = "on";
@@ -99,19 +90,26 @@ in
 
   services.printing.enable = true;
 
- sound.enable = true;
- services.blueman.enable = true;
- hardware.bluetooth.enable = true;
- hardware.bluetooth.powerOnBoot = true;
- hardware.pulseaudio.enable = false;
- security.rtkit.enable = true;
- services.pipewire = {
-   enable = true;
-   alsa.enable = true;
-   alsa.support32Bit = true;
-   pulse.enable = false;
- };
+  sound.enable = true;
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
+ programs.hyprland.enable = true; 
+
+  services.xserver.libinput = {
+    enable = true;
+    touchpad.naturalScrolling = true;
+  };
 
   users.users.rkc = {
     isNormalUser = true;
@@ -133,8 +131,7 @@ in
     pkgs.git
   ];
 
-  system.stateVersion = "24.05"; 
-
+  programs.steam.enable = true;
 
   nix = {
     package = pkgs.nixFlakes;
@@ -154,4 +151,6 @@ in
 
   boot.binfmt.emulatedSystems =
     ["aarch64-linux"];
+
+  system.stateVersion = "24.05"; 
 }

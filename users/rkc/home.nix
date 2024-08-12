@@ -58,6 +58,7 @@ in
         ngrok
         ghc
         miller
+        nerdfonts
     ] ++ [
         # github-desktop
         qbittorrent
@@ -71,7 +72,7 @@ in
         evince
         zoom-us
         obs-studio
-        # okular
+        okular
         ];
 
     programs.home-manager = {
@@ -90,13 +91,29 @@ in
         extraConfig = xmobar-config;
 	};
     
-
-    xsession.windowManager.xmonad = {
+    programs.kitty = {
         enable = true;
-        enableContribAndExtras = true;
-        config = pkgs.writeText "xmonad.hs" xmonad-config ;
+        theme = "Argonaut";
     };
 
+    programs.starship = {
+        enable = true;
+        enableBashIntegration = true;
+        settings = {
+            add_newline = false;
+        };
+    };
+
+    wayland.windowManager.hyprland = {
+        enable = true;
+        settings = {
+            "$mod" = "SUPER";
+            bind = [
+                "$mod, F, exec, kitty"
+            ];
+        };
+    };
+    
     services.picom = {
         enable = true;
 	      fade = true;
@@ -135,13 +152,13 @@ in
             display-drun = "Applications";
 		    modi = "run,calc,drun,filebrowser";
         };
-        theme = "gruvbox-dark-hard";
+        theme = "DarkBlue";
     };
 
     programs.helix = {
         enable = true;
         settings = {
-            theme = "gruvbox_dark_hard";
+            theme = "base16_terminal";
             editor = {
                 line-number = "relative";
                 lsp.display-messages = true;
