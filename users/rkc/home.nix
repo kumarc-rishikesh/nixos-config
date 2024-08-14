@@ -3,6 +3,7 @@ let
   alacritty-config = import ./alacritty-config.nix;
   xmobar-config = builtins.readFile ./xmobarrc.conf;
   xmonad-config = builtins.readFile ./xmonadrc.hs;
+  hyprland-config = import ./hyprland-config.nix;
 in
 {
     home.username = "rkc";
@@ -13,7 +14,6 @@ in
         alacritty
         feh
         alsa-utils
-        ksnip
         ranger
         multilockscreen
         neofetch
@@ -29,6 +29,12 @@ in
         wpa_supplicant_gui
         qemu
         gparted
+        rofi-screenshot
+        playerctl
+    ] ++ [
+        # nerdfonts
+        dunst
+        libnotify
     ] ++ [
         nodejs
         rustc
@@ -58,7 +64,6 @@ in
         ngrok
         ghc
         miller
-        nerdfonts
     ] ++ [
         # github-desktop
         qbittorrent
@@ -78,45 +83,50 @@ in
     programs.home-manager = {
         enable = true;
 	};
-
-
-    programs.alacritty = {
-      enable = true;
-      settings = alacritty-config;
-    };
-
-
-    programs.xmobar = {
-        enable = true;
-        extraConfig = xmobar-config;
-	};
     
     programs.kitty = {
         enable = true;
         theme = "Argonaut";
     };
 
-    programs.starship = {
+    services.playerctld.enable = true;
+
+    programs.waybar = {
         enable = true;
-        enableBashIntegration = true;
-        settings = {
-            add_newline = false;
-        };
     };
 
-    wayland.windowManager.hyprland = {
+    services.hyprpaper = {
         enable = true;
         settings = {
-            "$mod" = "SUPER";
-            bind = [
-                "$mod, F, exec, kitty"
-            ];
+          ipc = "off";
+          splash = false;
+          splash_offset = 2.0;
+
+          preload =
+            [ "~/Pictures/thinknix-d.jpg" ];
+
+          wallpaper = [
+            "eDP-1,~/Pictures/thinknix-d.jpg"
+          ];
         };
     };
     
-    services.picom = {
+    wayland.windowManager.hyprland = {
         enable = true;
-	      fade = true;
+        settings = hyprland-config.settings;
+        extraConfig = hyprland-config.extraConfig;
+        sourceFirst = true;
+        systemd.variables = ["--all"];
+        };
+
+    programs.hyprlock = {
+        enable = true;
+    };
+    
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = "*";
     };
 
     services.screen-locker = {
@@ -137,20 +147,26 @@ in
 	    purescript-vim
 	    dracula-nvim
 	    nvchad
-	];
-	viAlias = true;
-	extraConfig = ''
-	    set clipboard+=unnamedplus
-	    syntax enable
-	'';
-    };
+    	];
+    	viAlias = true;
+    	extraConfig = ''
+    	    set clipboard+=unnamedplus
+    	    syntax enable
+    	'';
+        };
     
     programs.rofi = {
         enable = true;
-	      plugins = [ pkgs.rofi-calc ];
+        package = pkgs.rofi-wayland;
+	      plugins = [ 
+            (pkgs.rofi-calc.override {
+              rofi-unwrapped = pkgs.rofi-wayland-unwrapped;
+            })
+            pkgs.rofi-power-menu        
+        ];
         extraConfig = {	    
             display-drun = "Applications";
-		    modi = "run,calc,drun,filebrowser";
+		    modi = "run,calc,power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu,drun,filebrowser";
         };
         theme = "DarkBlue";
     };
@@ -173,12 +189,7 @@ in
     };
     programs.bash.enable = true;
 
-    # programs.fzf ={ 
-    #     enable = true;
-    #     enableBashIntegration = true;
-    # };
-
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.05";
     nixpkgs.config.allowUnfree = true;
 
 }

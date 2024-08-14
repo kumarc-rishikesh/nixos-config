@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 let 
   network_connections = import /home/rkc/.config/networks.nix;
+  tokyo-night-sddm =  pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
 in
 {
   imports =
@@ -38,12 +39,18 @@ in
   };
 
   services.xserver={
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
     enable = true;
-    displayManager.sddm.enable = true;
     };
  
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "tokyo-night-sddm"; 
+    };
+
+  # services.displayManager.ly.enable = true;
+  
   environment.shells = with pkgs; [ bash ];
   
   services.tlp = {
@@ -90,7 +97,6 @@ in
 
   services.printing.enable = true;
 
-  sound.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -104,12 +110,15 @@ in
     jack.enable = true;
   };
 
- programs.hyprland.enable = true; 
+  programs.hyprland.enable = true; 
 
-  services.xserver.libinput = {
+  services.libinput = {
     enable = true;
-    touchpad.naturalScrolling = true;
   };
+
+  fonts.packages = with pkgs;[
+    meslo-lgs-nf
+  ];
 
   users.users.rkc = {
     isNormalUser = true;
@@ -121,6 +130,7 @@ in
   services.logind.extraConfig = ''
       IdleActionSec = 300;
       IdleAction = lock;
+      powerKey = "ignore";
   '';
 
   nixpkgs.config.allowUnfree = true;
@@ -129,9 +139,8 @@ in
     inputs.agenix.packages."x86_64-linux".default
     pkgs.home-manager
     pkgs.git
+    tokyo-night-sddm
   ];
-
-  programs.steam.enable = true;
 
   nix = {
     package = pkgs.nixFlakes;

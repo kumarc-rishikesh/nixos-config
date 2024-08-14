@@ -2,9 +2,8 @@
   description = "Nix flakke for system config";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-23.11"; 
+    nixpkgs.url = "nixpkgs/nixos-24.05";
+    home-manager.url = "github:nix-community/home-manager"; 
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
 };
@@ -17,7 +16,6 @@
       inherit system;
       config = { allowUnfree = true; };
     };
-
     lib = nixpkgs.lib;
 
   in {
