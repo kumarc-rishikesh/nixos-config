@@ -1,14 +1,14 @@
 {
-  description = "Nix flakke for system config";
+  description = "Nix flae for system config";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
-    home-manager.url = "github:nix-community/home-manager"; 
+    home-manager.url = "github:nix-community/home-manager/release-24.05"; 
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
 };
 
-  outputs = { nixpkgs, home-manager,agenix, ... } @inputs : 
+  outputs = { nixpkgs,home-manager,agenix, ... } @inputs : 
   let 
     system = "x86_64-linux";
 

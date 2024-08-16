@@ -1,21 +1,19 @@
 { pkgs, ... }:
 let
   alacritty-config = import ./alacritty-config.nix;
-  xmobar-config = builtins.readFile ./xmobarrc.conf;
-  xmonad-config = builtins.readFile ./xmonadrc.hs;
   hyprland-config = import ./hyprland-config.nix;
+  waybar-config = import ./waybar-conf.nix;
+  hyprlock-config = builtins.readFile ./hyprlock.conf;
 in
 {
     home.username = "rkc";
     home.homeDirectory = "/home/rkc";
     home.packages = with pkgs; [
-        xmobar
         bluetuith
         alacritty
         feh
         alsa-utils
         ranger
-        multilockscreen
         neofetch
         vim
         wget
@@ -31,10 +29,10 @@ in
         gparted
         rofi-screenshot
         playerctl
-    ] ++ [
-        # nerdfonts
-        dunst
         libnotify
+        ripgrep
+        clipse
+        wl-clipboard
     ] ++ [
         nodejs
         rustc
@@ -93,6 +91,29 @@ in
 
     programs.waybar = {
         enable = true;
+        settings = waybar-config.settings;
+        style = waybar-config.style;
+				};
+
+    services.dunst = {
+        enable = true;
+        settings = {
+          global = {
+            width = 300;
+            height = 300;
+            offset = "30x50";
+            origin = "top-right";
+            transparency = 90;
+            frame_color = "#000000";
+            font = "Droid Sans 9";
+          };
+
+          urgency_normal = {
+            background = "#9ea0a3";
+            foreground = "#000000";
+            timeout = 10;
+          };
+        };
     };
 
     services.hyprpaper = {
@@ -120,7 +141,8 @@ in
         };
 
     programs.hyprlock = {
-        enable = true;
+        enable = true; 
+        extraConfig = hyprlock-config;
     };
     
     xdg.portal = {
@@ -187,7 +209,9 @@ in
         enableBashIntegration = true; 
         nix-direnv.enable = true;
     };
-    programs.bash.enable = true;
+    programs.bash = {
+        enable = true;
+    };
 
     home.stateVersion = "24.05";
     nixpkgs.config.allowUnfree = true;

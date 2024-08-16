@@ -2,16 +2,24 @@
   
   settings = {
       "$mod" = "SUPER";
-      exec-once = "waybar & hyprpaper &";
+      exec-once = [
+        "waybar & hyprpaper & clipse -listen &" 
+        ];
       monitor = ",preferred,auto,1.0";
       windowrulev2 = [
-        "float,class:(Rofi),title:(rofi - Screenshot)"
-        "center,class:(Rofi),title:(rofi - Screenshot)"
-        ];
+            "float, class:(clipse)"
+            "size 622 652, class:(clipse)"
+       ];
       bind = [
           "$mod SHIFT, C, killactive,"
           "$mod SHIFT, return, exec, kitty"
+          "$mod, C, exec, rofi -show calc"
+          "$mod SHIFT, P, exec, rofi -show drun"
+          "$mod SHIFT, L, exec, hyprlock"
+          "$mod, F, exec, rofi -show filebrowser"
+          "$mod, C, exec, rofi -show calc"
           "$mod, B, exec, brave"
+          "$mod SHIFT, Q, exec, hyprctl dispatch exit"
           #window nav
           "$mod, left, movefocus, l"
           "$mod, right, movefocus, r"
@@ -41,6 +49,7 @@
           #special
           "$mod, S, togglespecialworkspace, magic"
           "$mod SHIFT, S, movetoworkspace, special:magic"
+          "$mod, V, exec, kitty --class clipse -e clipse"
           ];
       bindm =[ 
           "$mod, mouse:272, movewindow"
@@ -53,29 +62,38 @@
           ", XF86MonBrightnessUp, exec, brightnessctl set 5%+" 
           ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
           ", XF86AudioMicMute, exec, amixer set Capture toggle"
-          ", Print, exec, rofi-screenshot"
-          # ". XF86AudioNext, exec, playerctl next"
-          # ". XF86AudioPrev, exec, playerctl previous"
-          # ". XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioPlay, exec, playerctl play-pause"
          ];
 
   };
 extraConfig = ''
     general {
         gaps_in = 2
-        gaps_out = 5
+        gaps_out = 1
         layout = dwindle
-    }
+        col.active_border = rgb(44475a) # or rgb(6272a4)
+        col.inactive_border = rgb(282a36)
+        }
     decoration {
         rounding = 2
         active_opacity = 0.95
         inactive_opacity = 0.8
         blur {         
             enabled = true
-            size = 3
+            size = 0
             passes = 1
             vibrancy = 0.1696
         }
+        col.shadow = rgba(1E202966)
+
+    # suggested shadow setting
+        drop_shadow = yes
+        shadow_range = 60
+        shadow_offset = 1 2
+        shadow_render_power = 3
+        shadow_scale = 0.97
     }     
     dwindle {
         pseudotile = true
@@ -84,6 +102,12 @@ extraConfig = ''
     input {
         touchpad {
             natural_scroll = true
+        }
+    }
+    group {
+        groupbar {
+            col.active = rgb(bd93f9) rgb(44475a) 90deg
+            col.inactive = rgba(282a36dd)
         }
     }
   '';
