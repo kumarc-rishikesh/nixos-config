@@ -1,17 +1,23 @@
-{ config, pkgs, inputs, ... }:
-let 
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+let
   network_connections = import /home/rkc/.config/networks.nix;
-  tokyo-night-sddm =  pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+  tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+  agenix = inputs.agenix;
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    /etc/nixos/hardware-configuration.nix
+    inputs.agenix.nixosModules.default
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -19,14 +25,14 @@ in
     enable = true;
     userControlled.enable = true;
     networks = network_connections;
-   };
+  };
 
-#  time.timeZone = "Asia/Kolkata";
+  #  time.timeZone = "Asia/Kolkata";
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_IN";
 
   i18n.extraLocaleSettings = {
-    LC_CTYPE="en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
     LC_ADDRESS = "en_IN";
     LC_IDENTIFICATION = "en_IN";
     LC_MEASUREMENT = "en_IN";
@@ -38,21 +44,19 @@ in
     LC_TIME = "en_IN";
   };
 
-  services.xserver={
+  services.xserver = {
     xkb.layout = "us";
     xkb.variant = "";
     enable = true;
-    };
- 
+  };
+
   services.displayManager.sddm = {
     enable = true;
-    theme = "tokyo-night-sddm"; 
-    };
+    theme = "tokyo-night-sddm";
+  };
 
-  # services.displayManager.ly.enable = true;
-  
   environment.shells = with pkgs; [ bash ];
-  
+
   services.tlp = {
     enable = true;
     settings = {
@@ -89,9 +93,9 @@ in
       RESTORE_DEVICE_STATE_ON_STARTUP = 1;
       START_CHARGE_THRESH_BAT0 = 75;
       STOP_CHARGE_THRESH_BAT0 = 85;
-     };
+    };
   };
- 
+
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 
@@ -110,27 +114,29 @@ in
     jack.enable = true;
   };
 
-  programs.hyprland.enable = true; 
+  programs.hyprland.enable = true;
 
   services.libinput = {
     enable = true;
   };
 
-  fonts.packages = with pkgs;[
-    meslo-lgs-nf
-  ];
+  fonts.packages = with pkgs; [ meslo-lgs-nf ];
 
   users.users.rkc = {
     isNormalUser = true;
     description = "Rishikesh Kumar";
-    extraGroups = [ "networkmanager" "wheel" "audio" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+    ];
+    packages = with pkgs; [ ];
   };
 
   services.logind.extraConfig = ''
-      IdleActionSec = 300;
-      IdleAction = lock;
-      powerKey = "ignore";
+    IdleActionSec = 300;
+    IdleAction = lock;
+    powerKey = "ignore";
   '';
 
   nixpkgs.config.allowUnfree = true;
@@ -145,7 +151,7 @@ in
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
-    experimental-features = nix-command flakes
+      experimental-features = nix-command flakes
     '';
   };
 
@@ -158,8 +164,7 @@ in
     enable = true;
   };
 
-  boot.binfmt.emulatedSystems =
-    ["aarch64-linux"];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  system.stateVersion = "24.05"; 
+  system.stateVersion = "24.05";
 }
