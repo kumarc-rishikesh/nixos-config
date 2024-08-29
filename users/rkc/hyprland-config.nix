@@ -7,6 +7,7 @@
     windowrulev2 = [
       "float, class:(clipse)"
       "size 622 652, class:(clipse)"
+      "opacity 1.0, class:brave-browser"
     ];
     bind = [
       "$mod SHIFT, C, killactive,"
@@ -17,12 +18,14 @@
       "$mod, F, exec, rofi -show filebrowser"
       "$mod, C, exec, rofi -show calc"
       "$mod, B, exec, brave"
+      ", Print, exec, hyprshot -m region --clipboard-only"
       "$mod SHIFT, Q, exec, hyprctl dispatch exit"
       #window nav
       "$mod, left, movefocus, l"
       "$mod, right, movefocus, r"
       "$mod, up, movefocus, u"
       "$mod, down, movefocus, d"
+      "$mod, TAB, cyclenext,"
       #window
       "$mod, 1, workspace, 1"
       "$mod, 2, workspace, 2"
@@ -76,14 +79,8 @@
         }
     decoration {
         rounding = 2
-        active_opacity = 0.95
-        inactive_opacity = 0.8
-        blur {         
-            enabled = true
-            size = 0
-            passes = 1
-            vibrancy = 0.1696
-        }
+        active_opacity = 0.8
+        inactive_opacity = 0.6
         col.shadow = rgba(1E202966)
 
     # suggested shadow setting
@@ -107,6 +104,11 @@
             col.active = rgb(bd93f9) rgb(44475a) 90deg
             col.inactive = rgba(282a36dd)
         }
+    }
+
+    misc {
+        enable_swallow = true
+        swallow_regex = ^(kitty)$
     }
   '';
 }

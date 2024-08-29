@@ -29,7 +29,6 @@ in
       wpa_supplicant_gui
       qemu
       gparted
-      rofi-screenshot
       playerctl
       libnotify
       ripgrep
@@ -40,6 +39,7 @@ in
       zlib
       zlib.dev
       lldb
+      hyprshot
     ]
     ++ [
       nodejs
@@ -69,6 +69,9 @@ in
       miller
       elixir_1_15
       elixir-ls
+      sbt
+      metals
+      scalafmt
     ]
     ++ [
       # github-desktop
@@ -160,11 +163,11 @@ in
       };
       listener = [
         {
-          timeout = 300;
+          timeout = 420;
           on-timeout = "hyprlock";
         }
         {
-          timeout = 420;
+          timeout = 300;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
@@ -174,7 +177,10 @@ in
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
     config.common.default = "*";
   };
 
