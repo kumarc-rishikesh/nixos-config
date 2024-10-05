@@ -4,6 +4,21 @@ let
   hyprland-config = import ./hyprland-config.nix;
   waybar-config = import ./waybar-conf.nix;
   hyprlock-config = builtins.readFile ./hyprlock.conf;
+
+  customSpark = pkgs.spark.overrideAttrs (oldAttrs: {
+    postInstall = ''
+      mkdir -p $out/share/doc/spark/
+      mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
+    '';
+  });
+
+  customScala = pkgs.scala.overrideAttrs (oldAttrs: {
+    postInstall = ''
+      mkdir -p $out/share/doc/scala/
+      mv $out/LICENSE $out/NOTICE $out/share/doc/scala/
+    '';
+  });
+
 in
 {
   home.username = "rkc";
@@ -11,6 +26,7 @@ in
   home.packages =
     with pkgs;
     [
+      busybox
       bluetuith
       alacritty
       feh
@@ -62,6 +78,7 @@ in
       haskellPackages.hoogle
       haskellPackages.fourmolu
       cabal-install
+      ghcid
       cabal2nix
       haskellPackages.zlib
       stack
@@ -69,8 +86,12 @@ in
       miller
       elixir_1_15
       elixir-ls
+      customScala
+      jdk22
+      customSpark
       sbt
       metals
+      scala-cli
       scalafmt
     ]
     ++ [
@@ -87,6 +108,8 @@ in
       zoom-us
       obs-studio
       okular
+      slack
+      jetbrains.idea-community
     ];
 
   programs.home-manager = {
@@ -226,6 +249,11 @@ in
         line-number = "relative";
         lsp.display-messages = true;
       };
+      keys.normal = {
+        space.r = ":reset-diff-change";
+        C-e = "goto_line_end";
+        C-a = "goto_line_start";
+      };
     };
     languages = {
       language = [
@@ -248,6 +276,13 @@ in
           auto-format = true;
           formatter = {
             command = "mix format";
+          };
+        }
+        {
+          name = "scala";
+          auto-format = true;
+          formatter = {
+            command = "scalafmt";
           };
         }
       ];

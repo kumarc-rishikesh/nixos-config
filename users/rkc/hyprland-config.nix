@@ -7,7 +7,7 @@
     windowrulev2 = [
       "float, class:(clipse)"
       "size 622 652, class:(clipse)"
-      "opacity 1.0, class:brave-browser"
+      "opacity 1.0, class:firefox"
     ];
     bind = [
       "$mod SHIFT, C, killactive,"
@@ -79,7 +79,7 @@
         }
     decoration {
         rounding = 2
-        active_opacity = 0.8
+        active_opacity = 1
         inactive_opacity = 0.6
         col.shadow = rgba(1E202966)
 
