@@ -218,6 +218,7 @@ in
       }
       purescript-vim
       dracula-nvim
+      haskell-vim
       nvchad
     ];
     viAlias = true;
@@ -246,7 +247,6 @@ in
     settings = {
       theme = "base16_terminal";
       editor = {
-        line-number = "relative";
         lsp.display-messages = true;
       };
       keys.normal = {
@@ -256,13 +256,13 @@ in
       };
     };
     languages = {
+      language-server.haskell-language-server = {
+        config.formattingProvider = "fourmolu";
+      };
       language = [
         {
           name = "haskell";
           auto-format = true;
-          formatter = {
-            command = "fourmolu";
-          };
         }
         {
           name = "nix";
@@ -294,6 +294,7 @@ in
     enableBashIntegration = true;
     nix-direnv.enable = true;
   };
+
   programs.bash = {
     enable = true;
   };
