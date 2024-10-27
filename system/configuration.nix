@@ -5,7 +5,6 @@
   ...
 }:
 let
-  network_connections = import /home/rkc/.config/networks.nix;
   tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
   agenix = inputs.agenix;
 in
@@ -18,14 +17,12 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  hardware.enableRedistributableFirmware = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-
-  networking.wireless = {
-    enable = true;
-    userControlled.enable = true;
-    networks = network_connections;
-  };
+  networking.networkmanager.enable = true;
 
   #  time.timeZone = "Asia/Kolkata";
   time.timeZone = "America/New_York";
@@ -52,50 +49,25 @@ in
 
   services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
     theme = "tokyo-night-sddm";
   };
 
   environment.shells = with pkgs; [ bash ];
 
-  services.tlp = {
+  services.auto-cpufreq = {
     enable = true;
     settings = {
-      TLP_DEFAULT_MODE = "AC";
-      TLP_PERSISTENT_DEFAULT = 0;
-      DISK_IDLE_SECS_ON_AC = 0;
-      DISK_IDLE_SECS_ON_BAT = 2;
-      MAX_LOST_WORK_SECS_ON_AC = 15;
-      MAX_LOST_WORK_SECS_ON_BAT = 60;
-      CPU_HWP_ON_AC = "performance";
-      CPU_HWP_ON_BAT = "balance_power";
-      SCHED_POWERSAVE_ON_AC = 0;
-      SCHED_POWERSAVE_ON_BAT = 1;
-      NMI_WATCHDOG = 0;
-      ENERGY_PERF_POLICY_ON_AC = "performance";
-      ENERGY_PERF_POLICY_ON_BAT = "powersave";
-      DISK_APM_LEVEL_ON_AC = "254 254";
-      DISK_APM_LEVEL_ON_BAT = "128 128";
-      SATA_LINKPWR_ON_AC = "max_performance";
-      SATA_LINKPWR_ON_BAT = "min_power";
-      PCIE_ASPM_ON_AC = "performance";
-      PCIE_ASPM_ON_BAT = "powersave";
-      RADEON_POWER_PROFILE_ON_AC = "high";
-      SOUND_POWER_SAVE_CONTROLLER = "Y";
-      RADEON_POWER_PROFILE_ON_BAT = "low";
-      RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
-      RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
-      WIFI_PWR_ON_AC = "on";
-      # WIFI_PWR_ON_AC = "on";
-      SOUND_POWER_SAVE_ON_AC = 0;
-      SOUND_POWER_SAVE_ON_BAT = 1;
-      RUNTIME_PM_ON_AC = "on";
-      RUNTIME_PM_ON_BAT = "auto";
-      RESTORE_DEVICE_STATE_ON_STARTUP = 1;
-      START_CHARGE_THRESH_BAT0 = 75;
-      STOP_CHARGE_THRESH_BAT0 = 85;
+      battery = {
+        governor = "powersave";
+        turbo = "never";
+      };
+      charger = {
+        governor = "performance";
+        turbo = "auto";
+      };
     };
   };
-
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 

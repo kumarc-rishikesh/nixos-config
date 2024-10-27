@@ -56,6 +56,7 @@ in
       zlib.dev
       lldb
       hyprshot
+      hyprpaper
     ]
     ++ [
       nodejs
@@ -93,6 +94,7 @@ in
       metals
       scala-cli
       scalafmt
+      ammonite
     ]
     ++ [
       # github-desktop

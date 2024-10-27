@@ -167,7 +167,7 @@
         "network"
         "cpu"
         "memory"
-        "temperature"
+        # "temperature"
         "battery"
         "clock"
         "tray"

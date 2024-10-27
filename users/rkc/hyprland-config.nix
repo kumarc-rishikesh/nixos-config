@@ -19,6 +19,7 @@
       "$mod, C, exec, rofi -show calc"
       "$mod, B, exec, brave"
       ", Print, exec, hyprshot -m region --clipboard-only"
+      "$mod, Print, exec, hyprshot -m region"
       "$mod SHIFT, Q, exec, hyprctl dispatch exit"
       #window nav
       "$mod, left, movefocus, l"
@@ -63,6 +64,12 @@
       ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
       ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
       ", XF86AudioMicMute, exec, amixer set Capture toggle"
+      ", F3 , exec, amixer set Master 5%+"
+      ", F2 , exec, amixer set Master 5%-"
+      ", F1 , exec, amixer set Master toggle"
+      ", F5, exec, brightnessctl set 5%+"
+      ", F4, exec, brightnessctl set 5%-"
+      ", F1, exec, amixer set Capture toggle"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
       ", XF86AudioPlay, exec, playerctl play-pause"
@@ -89,6 +96,13 @@
         shadow_offset = 1 2
         shadow_render_power = 3
         shadow_scale = 0.97
+        
+        blur {
+          enabled = true
+          size = 5
+          passes = 5
+    }
+
     }     
     dwindle {
         pseudotile = true
