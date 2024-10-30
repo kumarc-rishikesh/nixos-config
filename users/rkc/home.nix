@@ -4,25 +4,27 @@ let
   hyprland-config = import ./hyprland-config.nix;
   waybar-config = import ./waybar-conf.nix;
   hyprlock-config = builtins.readFile ./hyprlock.conf;
-
-  customSpark = pkgs.spark.overrideAttrs (oldAttrs: {
-    postInstall = ''
-      mkdir -p $out/share/doc/spark/
-      mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
-    '';
-  });
-
-  customScala = pkgs.scala.overrideAttrs (oldAttrs: {
-    postInstall = ''
-      mkdir -p $out/share/doc/scala/
-      mv $out/LICENSE $out/NOTICE $out/share/doc/scala/
-    '';
-  });
-
 in
 {
   home.username = "rkc";
   home.homeDirectory = "/home/rkc";
+  nixpkgs.overlays = [
+    (final: prev: {
+      spark = prev.spark.overrideAttrs (oldAttrs: {
+        postInstall = ''
+          mkdir -p $out/share/doc/spark/
+          mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
+        '';
+      });
+
+      scala = prev.scala.overrideAttrs (oldAttrs: {
+        postInstall = ''
+          mkdir -p $out/share/doc/scala/
+          mv $out/LICENSE $out/NOTICE $out/share/doc/scala/
+        '';
+      });
+    })
+  ];
   home.packages =
     with pkgs;
     [
@@ -87,9 +89,9 @@ in
       miller
       elixir_1_15
       elixir-ls
-      customScala
-      jdk22
-      customSpark
+      scala
+      jdk11
+      spark
       sbt
       metals
       scala-cli
