@@ -68,6 +68,19 @@ in
       };
     };
   };
+
+  services.prometheus = {
+    enable = true;
+    exporters = {
+
+      node = {
+        enable = true;
+        enabledCollectors = [ "systemd" ];
+      };
+      varnish.enable = true;
+    };
+  };
+
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 
@@ -119,6 +132,7 @@ in
     pkgs.home-manager
     pkgs.git
     tokyo-night-sddm
+    pkgs.distrobox
   ];
 
   nix = {
@@ -128,14 +142,21 @@ in
     '';
   };
 
-  virtualisation.docker = {
+  virtualisation.podman = {
     enable = true;
-    rootless.enable = true;
+    dockerCompat = true;
   };
 
   services.postgresql = {
     enable = true;
+    ensureDatabases = [ "mydatabase" ];
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+    '';
   };
+
+  services.clickhouse.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

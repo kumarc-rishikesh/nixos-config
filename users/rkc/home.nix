@@ -59,6 +59,8 @@ in
       lldb
       hyprshot
       hyprpaper
+      distrobox
+      jq
     ]
     ++ [
       nodejs
@@ -114,6 +116,8 @@ in
       okular
       slack
       jetbrains.idea-community
+      telegram-desktop
+      dbeaver-bin
     ];
 
   programs.home-manager = {
