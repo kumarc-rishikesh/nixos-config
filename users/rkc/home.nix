@@ -186,9 +186,9 @@ in
       splash = false;
       splash_offset = 2.0;
 
-      preload = [ "./thinknix-d.jpg" ];
+      preload = [ "~/Pictures/thinknix-d.jpg" ];
 
-      wallpaper = [ "eDP-1,./thinknix-d.jpg" ];
+      wallpaper = [ "eDP-1,~/Pictures/thinknix-d.jpg" ];
     };
   };
 
