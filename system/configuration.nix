@@ -69,18 +69,6 @@ in
     };
   };
 
-  services.prometheus = {
-    enable = true;
-    exporters = {
-
-      node = {
-        enable = true;
-        enabledCollectors = [ "systemd" ];
-      };
-      varnish.enable = true;
-    };
-  };
-
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
 
@@ -100,7 +88,20 @@ in
     wireplumber.enable = true;
   };
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config.common.default = "*";
+  };
 
   services.libinput = {
     enable = true;
@@ -119,6 +120,8 @@ in
     packages = with pkgs; [ ];
   };
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   services.logind.extraConfig = ''
     IdleActionSec = 300;
     IdleAction = lock;
@@ -136,15 +139,15 @@ in
   ];
 
   nix = {
-    package = pkgs.nixFlakes;
+    # package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
   };
 
-  virtualisation.podman = {
+  virtualisation.docker.rootless = {
     enable = true;
-    dockerCompat = true;
+    setSocketVariable = true;
   };
 
   services.postgresql = {
@@ -160,5 +163,5 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }

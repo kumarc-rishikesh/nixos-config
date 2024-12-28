@@ -61,6 +61,7 @@ in
       hyprpaper
       distrobox
       jq
+      localstack
     ]
     ++ [
       nodejs
@@ -126,7 +127,27 @@ in
 
   programs.kitty = {
     enable = true;
-    theme = "Argonaut";
+    themeFile = "Argonaut";
+  };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 20;
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Grey-Darkest";
+    };
+
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
   };
 
   services.playerctld.enable = true;
@@ -165,9 +186,9 @@ in
       splash = false;
       splash_offset = 2.0;
 
-      preload = [ "~/Pictures/thinknix-d.jpg" ];
+      preload = [ "./thinknix-d.jpg" ];
 
-      wallpaper = [ "eDP-1,~/Pictures/thinknix-d.jpg" ];
+      wallpaper = [ "eDP-1,./thinknix-d.jpg" ];
     };
   };
 
@@ -204,15 +225,6 @@ in
         }
       ];
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-hyprland
-    ];
-    config.common.default = "*";
   };
 
   programs.neovim = {
@@ -307,7 +319,7 @@ in
     enable = true;
   };
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
   nixpkgs.config.allowUnfree = true;
 
 }

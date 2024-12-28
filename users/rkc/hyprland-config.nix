@@ -2,6 +2,7 @@
 
   settings = {
     "$mod" = "SUPER";
+    "$terminal" = "kitty";
     exec-once = [ "waybar & hyprpaper & clipse -listen &" ];
     monitor = ",preferred,auto,1.0";
     windowrulev2 = [
@@ -88,14 +89,14 @@
         rounding = 2
         active_opacity = 1
         inactive_opacity = 0.6
-        col.shadow = rgba(1E202966)
+        # col.shadow = rgba(1E202966)
 
     # suggested shadow setting
-        drop_shadow = yes
-        shadow_range = 60
-        shadow_offset = 1 2
-        shadow_render_power = 3
-        shadow_scale = 0.97
+        # drop_shadow = yes
+        # shadow_range = 60
+        # shadow_offset = 1 2
+        # shadow_render_power = 3
+        # shadow_scale = 0.97
         
         blur {
           enabled = true
