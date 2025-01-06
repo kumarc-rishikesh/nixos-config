@@ -12,7 +12,41 @@
 
     plugins = {
       lualine.enable = true;
-      lsp.enable = true;
+      lsp = {
+        enable = true;
+        servers = {
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
+          nixd.enable = true;
+          metals.enable = true;
+          hls = {
+            enable = true;
+            installGhc = false;
+          };
+          pylsp.enable = true;
+          elixirls.enable = true;
+        };
+        keymaps.lspBuf = {
+          "K" = "hover";
+          "gD" = "references";
+          "gd" = "definition";
+          "gi" = "implementation";
+          "gt" = "type_definition";
+          "<leader>ca" = "code_action";
+        };
+        keymaps.diagnostic = {
+          "<leader>j" = "goto_next";
+          "<leader>k" = "goto_prev";
+        };
+      };
+      cmp = {
+        enable = true;
+        autoEnableSources = true;
+      };
+      fidget.enable = true;
       lsp-format.enable = true;
       lsp-status.enable = true;
       neo-tree = {
@@ -21,13 +55,32 @@
         enableRefreshOnWrite = true;
       };
       web-devicons.enable = true;
+      nvim-autopairs.enable = true;
+      nvim-colorizer.enable = true;
+      todo-comments.enable = true;
       gitsigns.enable = true;
-      telescope.enable = true;
       indent-blankline.enable = true;
       treesitter = {
         enable = true;
         folding = false;
-
+      };
+      telescope = {
+        enable = true;
+        extensions = {
+          ui-select.enable = true;
+        };
+        keymaps = {
+          "<leader>sh" = "help_tags"; # [S]earch [H]elp
+          "<leader>sk" = "keymaps"; # [S]earch [K]eymaps
+          "<leader>sf" = "find_files"; # [S]earch [F]iles
+          "<leader>ss" = "builtin"; # [S]earch [S]elect Telescope
+          "<leader>sw" = "grep_string"; # [S]earch current [W]ord
+          "<leader>sg" = "live_grep"; # [S]earch by [G]rep
+          "<leader>sd" = "diagnostics"; # [S]earch [D]iagnostics
+          "<leader>sr" = "resume"; # [S]earch [R]esume
+          "<leader>s" = "oldfiles"; # [S]earch Recent Files ("." for repeat)
+          "<leader><leader>" = "buffers"; # [ ] Find existing buffers
+        };
       };
     };
 
@@ -43,7 +96,6 @@
       smartindent = true;
       pumheight = 10;
     };
-    clipboard.register = "unnamedplus";
 
     keymaps = [
       {
@@ -109,7 +161,7 @@
       {
         mode = "n";
         key = "<C-l>";
-        action = ":wincmd l<CR>";
+        action = ":wincmd h<CR>";
       }
       {
         mode = "v";
