@@ -5,7 +5,8 @@
   ...
 }:
 let
-  tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
   agenix = inputs.agenix;
 in
 {
@@ -47,10 +48,25 @@ in
     enable = true;
   };
 
-  services.displayManager.sddm = {
+  services.greetd = {
     enable = true;
-    wayland.enable = true;
-    theme = "tokyo-night-sddm";
+    settings = {
+      default_session = {
+        command = "${tuigreet} --time --remember --remember-session --sessions ${hyprland-session}";
+        user = "greeter";
+      };
+    };
+  };
+
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal"; # Without this errors will spam on screen
+    # Without these bootlogs will spam on screen
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
   };
 
   environment.shells = with pkgs; [ bash ];
@@ -134,7 +150,6 @@ in
     inputs.agenix.packages."x86_64-linux".default
     pkgs.home-manager
     pkgs.git
-    tokyo-night-sddm
     pkgs.distrobox
   ];
 

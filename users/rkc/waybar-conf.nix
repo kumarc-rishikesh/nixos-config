@@ -3,7 +3,6 @@
     * {
         border: none;
         border-radius: 0px;
-        /*font-family: VictorMono, Iosevka Nerd Font, Noto Sans CJK;*/
         font-family: MesloLGS NF;
         font-size: 14.5px;
         font-style: normal;
@@ -167,7 +166,6 @@
         "network"
         "cpu"
         "memory"
-        # "temperature"
         "battery"
         "clock"
         "tray"

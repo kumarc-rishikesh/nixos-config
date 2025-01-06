@@ -4,8 +4,19 @@ let
   hyprland-config = import ./hyprland-config.nix;
   waybar-config = import ./waybar-conf.nix;
   hyprlock-config = builtins.readFile ./hyprlock.conf;
+  helix-config = import ./helix-config.nix;
+  nixvim-config = import ./nixvim-config.nix { inherit pkgs; };
+  nixvim = import (
+    builtins.fetchGit {
+      url = "https://github.com/nix-community/nixvim";
+      ref = "nixos-24.11";
+    }
+  );
 in
 {
+  imports = [
+    nixvim.homeManagerModules.nixvim
+  ];
   home.username = "rkc";
   home.homeDirectory = "/home/rkc";
   nixpkgs.overlays = [
@@ -227,27 +238,6 @@ in
     };
   };
 
-  programs.neovim = {
-    enable = true;
-    coc.enable = false;
-    plugins = with pkgs.vimPlugins; [
-      vim-sensible
-      {
-        plugin = nerdtree;
-        config = "let g:NERDTreeMinimalUI = 1";
-      }
-      purescript-vim
-      dracula-nvim
-      haskell-vim
-      nvchad
-    ];
-    viAlias = true;
-    extraConfig = ''
-      set clipboard+=unnamedplus
-      syntax enable
-    '';
-  };
-
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
@@ -262,52 +252,7 @@ in
     theme = "DarkBlue";
   };
 
-  programs.helix = {
-    enable = true;
-    settings = {
-      theme = "base16_terminal";
-      editor = {
-        lsp.display-messages = true;
-      };
-      keys.normal = {
-        space.r = ":reset-diff-change";
-        C-e = "goto_line_end";
-        C-a = "goto_line_start";
-      };
-    };
-    languages = {
-      language-server.haskell-language-server = {
-        config.formattingProvider = "fourmolu";
-      };
-      language = [
-        {
-          name = "haskell";
-          auto-format = true;
-        }
-        {
-          name = "nix";
-          auto-format = true;
-          formatter = {
-            command = "nixfmt";
-          };
-        }
-        {
-          name = "elixir";
-          auto-format = true;
-          formatter = {
-            command = "mix format";
-          };
-        }
-        {
-          name = "scala";
-          auto-format = true;
-          formatter = {
-            command = "scalafmt";
-          };
-        }
-      ];
-    };
-  };
+  programs.helix = helix-config.settings;
 
   programs.direnv = {
     enable = true;
@@ -318,6 +263,8 @@ in
   programs.bash = {
     enable = true;
   };
+
+  programs.nixvim = nixvim-config.settings;
 
   home.stateVersion = "24.11";
   nixpkgs.config.allowUnfree = true;
