@@ -45,6 +45,20 @@
       cmp = {
         enable = true;
         autoEnableSources = true;
+        settings = {
+          sources = [
+            { name = "nvim_lsp"; }
+            { name = "buffer"; }
+            { name = "path"; }
+          ];
+          mapping = {
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-n>" = "cmp.mapping.select_next_item()";
+            "<C-p>" = "cmp.mapping.select_prev_item()";
+            "<C-y>" = "cmp.mapping.confirm({ select = true })";
+            "<C-e>" = "cmp.mapping.abort()";
+          };
+        };
       };
       fidget.enable = true;
       lsp-format.enable = true;
@@ -155,12 +169,12 @@
       }
       {
         mode = "n";
-        key = "<C-k>";
-        action = ":wincmd k<CR>";
+        key = "<C-l>";
+        action = ":wincmd l<CR>";
       }
       {
         mode = "n";
-        key = "<C-l>";
+        key = "<C-h>";
         action = ":wincmd h<CR>";
       }
       {
