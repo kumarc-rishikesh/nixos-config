@@ -139,6 +139,9 @@ in
   programs.kitty = {
     enable = true;
     themeFile = "Argonaut";
+    keybindings = {
+      "kitty_mod+enter" = "launch --cwd=current --location=vsplit --bias=30";
+    };
   };
 
   home.pointerCursor = {

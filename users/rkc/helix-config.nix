@@ -2,7 +2,7 @@
   settings = {
     enable = true;
     settings = {
-      theme = "base16_terminal";
+      theme = "gruvbox_dark_hard";
       editor = {
         lsp.display-messages = true;
       };

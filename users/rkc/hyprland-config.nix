@@ -1,5 +1,4 @@
 {
-
   settings = {
     "$mod" = "SUPER";
     "$terminal" = "kitty";

@@ -3,9 +3,19 @@
   settings = {
     enable = true;
     viAlias = true;
-    extraPlugins = with pkgs.vimPlugins; [ monokai-pro-nvim ];
-    colorscheme = "monokai-pro";
-
+    colorschemes.gruvbox = {
+      enable = true;
+      settings = {
+        palette_overrides = {
+          bright_blue = "#5476b2";
+          bright_purple = "#fb4934";
+          dark1 = "#323232";
+          dark2 = "#383330";
+          dark3 = "#323232";
+        };
+        terminal_colors = true;
+      };
+    };
     globals = {
       mapleader = "\ ";
     };
@@ -77,6 +87,13 @@
       treesitter = {
         enable = true;
         folding = false;
+        settings.ensure_installed = [
+          "nix"
+          "rust"
+          "python"
+          "haskell"
+          "elixir"
+        ];
       };
       telescope = {
         enable = true;
@@ -103,9 +120,9 @@
       relativenumber = true;
       wrap = false;
       linebreak = false;
-      shiftwidth = 4;
-      tabstop = 4;
-      softtabstop = 4;
+      shiftwidth = 2;
+      tabstop = 2;
+      softtabstop = 2;
       expandtab = true;
       smartindent = true;
       pumheight = 10;
