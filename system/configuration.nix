@@ -23,7 +23,10 @@ in
   hardware.enableRedistributableFirmware = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = true;
+  };
 
   #  time.timeZone = "Asia/Kolkata";
   time.timeZone = "America/New_York";

@@ -1,11 +1,10 @@
 { pkgs, ... }:
 let
-  alacritty-config = import ./alacritty-config.nix;
-  hyprland-config = import ./hyprland-config.nix;
-  waybar-config = import ./waybar-conf.nix;
-  hyprlock-config = builtins.readFile ./hyprlock.conf;
-  helix-config = import ./helix-config.nix;
-  nixvim-config = import ./nixvim-config.nix { inherit pkgs; };
+  hyprland-config = import ./de-configs/hyprland-config.nix;
+  waybar-config = import ./de-configs/waybar-conf.nix;
+  hyprlock-config = builtins.readFile ./de-configs/hyprlock.conf;
+  helix-config = import ./editor-configs/helix-config.nix;
+  nixvim-config = import ./editor-configs/nixvim-config.nix { inherit pkgs; };
   nixvim = import (
     builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
