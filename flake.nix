@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,6 +15,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       agenix,
       hyprland,
@@ -27,6 +29,10 @@
         config = {
           allowUnfree = true;
         };
+      };
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
 
@@ -46,8 +52,9 @@
       homeConfigurations.rkc = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./users/rkc/home.nix ];
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          inherit pkgs-unstable;
+        };
       };
     };
 }

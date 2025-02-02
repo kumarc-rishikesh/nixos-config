@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 let
   hyprland-config = import ./de-configs/hyprland-config.nix;
   waybar-config = import ./de-configs/waybar-conf.nix;
@@ -122,7 +122,7 @@ in
       brave
       vscode
       evince
-      zoom-us
+      pkgs-unstable.zoom-us
       obs-studio
       okular
       slack
