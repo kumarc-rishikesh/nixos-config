@@ -1,4 +1,11 @@
-{ pkgs, pkgs-unstable, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  pkgs-old,
+  inputs,
+  system,
+  ...
+}:
 let
   hyprland-config = import ./de-configs/hyprland-config.nix;
   waybar-config = import ./de-configs/waybar-conf.nix;
@@ -11,6 +18,7 @@ let
       ref = "nixos-24.11";
     }
   );
+  zen = inputs.zen-browser.packages.${system}.default;
 in
 {
   imports = [
@@ -110,6 +118,7 @@ in
       scala-cli
       scalafmt
       ammonite
+      elmPackages.elm
     ]
     ++ [
       # github-desktop
@@ -122,13 +131,15 @@ in
       brave
       vscode
       evince
-      pkgs-unstable.zoom-us
+      pkgs-old.zoom-us
       obs-studio
       okular
       slack
       jetbrains.idea-community
       telegram-desktop
       dbeaver-bin
+      pinta
+      zen
     ];
 
   programs.home-manager = {
@@ -201,7 +212,7 @@ in
 
       preload = [ "~/Pictures/thinknix-d.jpg" ];
 
-      wallpaper = [ "eDP-1,~/Pictures/thinknix-d.jpg" ];
+      wallpaper = [ ",~/Pictures/thinknix-d.jpg" ];
     };
   };
 

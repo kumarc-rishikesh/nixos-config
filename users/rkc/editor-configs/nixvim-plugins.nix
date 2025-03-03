@@ -16,6 +16,10 @@
       };
       pylsp.enable = true;
       elixirls.enable = true;
+      html.enable = true;
+      cssls.enable = true;
+      flow.enable = true;
+      elmls.enable = true;
     };
     keymaps.lspBuf = {
       "K" = "hover";

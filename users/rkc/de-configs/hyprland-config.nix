@@ -17,7 +17,7 @@
       "$mod SHIFT, L, exec, hyprlock"
       "$mod, F, exec, rofi -show filebrowser"
       "$mod, C, exec, rofi -show calc"
-      "$mod, B, exec, brave"
+      "$mod, B, exec, zen"
       ", Print, exec, hyprshot -m region --clipboard-only"
       "$mod, Print, exec, hyprshot -m region"
       "$mod SHIFT, Q, exec, hyprctl dispatch exit"
@@ -88,19 +88,12 @@
         rounding = 2
         active_opacity = 1
         inactive_opacity = 0.6
-        # col.shadow = rgba(1E202966)
-
-    # suggested shadow setting
-        # drop_shadow = yes
-        # shadow_range = 60
-        # shadow_offset = 1 2
-        # shadow_render_power = 3
-        # shadow_scale = 0.97
-        
+               
         blur {
           enabled = true
           size = 5
           passes = 5
+          vibrancy = 0.1696
     }
 
     }     
@@ -118,6 +111,34 @@
             col.active = rgb(bd93f9) rgb(44475a) 90deg
             col.inactive = rgba(282a36dd)
         }
+    }
+    animations {
+    enabled = yes, please :)
+
+    # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+
+    bezier = easeOutQuint,0.23,1,0.32,1
+    bezier = easeInOutCubic,0.65,0.05,0.36,1
+    bezier = linear,0,0,1,1
+    bezier = almostLinear,0.5,0.5,0.75,1.0
+    bezier = quick,0.15,0,0.1,1
+
+    animation = global, 1, 10, default
+    animation = border, 1, 5.39, easeOutQuint
+    animation = windows, 1, 4.79, easeOutQuint
+    animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
+    animation = windowsOut, 1, 1.49, linear, popin 87%
+    animation = fadeIn, 1, 1.73, almostLinear
+    animation = fadeOut, 1, 1.46, almostLinear
+    animation = fade, 1, 3.03, quick
+    animation = layers, 1, 3.81, easeOutQuint
+    animation = layersIn, 1, 4, easeOutQuint, fade
+    animation = layersOut, 1, 1.5, linear, fade
+    animation = fadeLayersIn, 1, 1.79, almostLinear
+    animation = fadeLayersOut, 1, 1.39, almostLinear
+    animation = workspaces, 1, 1.94, almostLinear, fade
+    animation = workspacesIn, 1, 1.21, almostLinear, fade
+    animation = workspacesOut, 1, 1.94, almostLinear, fade
     }
 
     misc {

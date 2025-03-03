@@ -4,10 +4,12 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs-old.url = "nixpkgs/nixos-24.05";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     agenix.url = "github:ryantm/agenix";
     hyprland.url = "github:hyprwm/Hyprland";
   };
@@ -16,7 +18,9 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-old,
       home-manager,
+      zen-browser,
       agenix,
       hyprland,
       ...
@@ -34,8 +38,13 @@
         inherit system;
         config.allowUnfree = true;
       };
-      lib = nixpkgs.lib;
 
+      pkgs-old = import nixpkgs-old {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      lib = nixpkgs.lib;
     in
     {
 
@@ -53,7 +62,7 @@
         inherit pkgs;
         modules = [ ./users/rkc/home.nix ];
         extraSpecialArgs = {
-          inherit pkgs-unstable;
+          inherit inputs system pkgs-unstable pkgs-old;
         };
       };
     };
