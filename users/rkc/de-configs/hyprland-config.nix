@@ -7,7 +7,12 @@
     windowrulev2 = [
       "float, class:(clipse)"
       "size 622 652, class:(clipse)"
-      "opacity 1.0, class:firefox"
+      "float, class:(nmtui)"
+      "size 400 400, class:(nmtui)"
+      "move 100%-400, class:(nmtui)"
+      "float, class:(bluetuith)"
+      "size 400 400, class:(bluetuith)"
+      "move 100%-400, class:(bluetuith)"
     ];
     bind = [
       "$mod SHIFT, C, killactive,"
@@ -52,6 +57,7 @@
       "$mod, S, togglespecialworkspace, magic"
       "$mod SHIFT, S, movetoworkspace, special:magic"
       "$mod, V, exec, kitty --class clipse -e clipse"
+      "$mod Shift, B, exec, kitty --class bluetuith -e bluetuith"
     ];
     bindm = [
       "$mod, mouse:272, movewindow"

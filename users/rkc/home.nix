@@ -152,6 +152,7 @@ in
     keybindings = {
       "kitty_mod+enter" = "launch --cwd=current --location=vsplit --bias=30";
     };
+    settings.confirm_os_window_close = 0;
   };
 
   home.pointerCursor = {

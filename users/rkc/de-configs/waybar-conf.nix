@@ -216,6 +216,7 @@
         format-linked = "{ifname} (No IP) ";
         format-wifi = "{essid} ({signalStrength}%) ";
         tooltip = false;
+        on-click = "kitty --class nmtui -e nmtui";
       };
       pulseaudio = {
         format = "{volume}% {icon} {format_source}";
@@ -235,6 +236,7 @@
         format-muted = " {format_source}";
         format-source = "{volume}% ";
         format-source-muted = "";
+        on-click = "kitty --class bluetuith -e bluetuith";
       };
     }
   ];
