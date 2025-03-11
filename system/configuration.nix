@@ -169,7 +169,7 @@ in
   };
 
   services.postgresql = {
-    enable = true;
+    enable = false;
     ensureDatabases = [ "mydatabase" ];
     authentication = pkgs.lib.mkOverride 10 ''
       #type database  DBuser  auth-method
@@ -177,7 +177,7 @@ in
     '';
   };
 
-  services.clickhouse.enable = true;
+  services.clickhouse.enable = false;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
