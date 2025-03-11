@@ -4,6 +4,7 @@
   pkgs-old,
   inputs,
   system,
+  anyrun,
   ...
 }:
 let
@@ -119,6 +120,8 @@ in
       scalafmt
       ammonite
       elmPackages.elm
+      elmPackages.elm-language-server
+      elmPackages.elm-format
     ]
     ++ [
       # github-desktop

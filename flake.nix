@@ -62,7 +62,12 @@
         inherit pkgs;
         modules = [ ./users/rkc/home.nix ];
         extraSpecialArgs = {
-          inherit inputs system pkgs-unstable pkgs-old;
+          inherit
+            inputs
+            system
+            pkgs-unstable
+            pkgs-old
+            ;
         };
       };
     };

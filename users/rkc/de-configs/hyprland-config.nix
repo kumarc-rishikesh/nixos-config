@@ -19,6 +19,7 @@
       "$mod SHIFT, return, exec, kitty"
       "$mod, C, exec, rofi -show calc"
       "$mod SHIFT, P, exec, rofi -show drun"
+      "$mod , ESCAPE, exec, rofi -show power-menu"
       "$mod SHIFT, L, exec, hyprlock"
       "$mod, F, exec, rofi -show filebrowser"
       "$mod, C, exec, rofi -show calc"
@@ -57,7 +58,6 @@
       "$mod, S, togglespecialworkspace, magic"
       "$mod SHIFT, S, movetoworkspace, special:magic"
       "$mod, V, exec, kitty --class clipse -e clipse"
-      "$mod Shift, B, exec, kitty --class bluetuith -e bluetuith"
     ];
     bindm = [
       "$mod, mouse:272, movewindow"
