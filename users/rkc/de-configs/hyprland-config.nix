@@ -24,6 +24,7 @@
       "$mod, F, exec, rofi -show filebrowser"
       "$mod, C, exec, rofi -show calc"
       "$mod, B, exec, zen"
+      "$mod SHIFT, B, exec, brave"
       ", Print, exec, hyprshot -m region --clipboard-only"
       "$mod, Print, exec, hyprshot -m region"
       "$mod SHIFT, Q, exec, hyprctl dispatch exit"

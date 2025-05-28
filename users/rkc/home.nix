@@ -29,12 +29,12 @@ in
   home.homeDirectory = "/home/rkc";
   nixpkgs.overlays = [
     (final: prev: {
-      spark = prev.spark.overrideAttrs (oldAttrs: {
-        postInstall = ''
-          mkdir -p $out/share/doc/spark/
-          mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
-        '';
-      });
+      # spark = prev.spark.overrideAttrs (oldAttrs: {
+      #   postInstall = ''
+      #     mkdir -p $out/share/doc/spark/
+      #     mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
+      #   '';
+      # });
 
       scala = prev.scala.overrideAttrs (oldAttrs: {
         postInstall = ''
@@ -90,6 +90,7 @@ in
       nodePackages.npm
       rustc
       rust-analyzer
+      rustfmt
       cargo
       python311
       python311.pkgs.pip
@@ -111,10 +112,11 @@ in
       miller
       elixir_1_15
       elixir-ls
-      scala
+      scala_2_13
       jdk11
-      spark
+      # spark
       sbt
+      mill
       metals
       scala-cli
       scalafmt
