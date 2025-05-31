@@ -110,8 +110,6 @@ in
       stack
       ghc
       miller
-      elixir_1_15
-      elixir-ls
       scala_2_13
       jdk11
       # spark
@@ -138,7 +136,6 @@ in
       evince
       pkgs-old.zoom-us
       obs-studio
-      okular
       slack
       jetbrains.idea-community
       telegram-desktop
@@ -281,6 +278,9 @@ in
 
   programs.bash = {
     enable = true;
+    sessionVariables = {
+      ANDROID_HOME = "~/Android/Sdk/";
+    };
   };
 
   programs.nixvim = nixvim-config.settings;
