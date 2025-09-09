@@ -17,9 +17,9 @@
     #workspaces {
         background: #11111D; /* rgba(26,26,26,.9); */
         padding: 0 1rem;
-        border-radius: 0.75rem;
+        border-radius: 1rem;
        	margin: 5px 5px 5px 5px;
-        padding: 0px 5px 0px 5px;
+        padding: 0px 0px 0px 0px;
         border: solid 0px #f4d9e1;
         font-weight: normal;
         font-style: normal;
@@ -33,7 +33,7 @@
     #workspaces button.active {
         color: black;
         background-color: white;
-        border-radius: 15px;
+        border-radius: 14px;
     }
 
     #workspaces button:hover {

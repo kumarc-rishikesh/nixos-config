@@ -29,7 +29,8 @@ in
   };
 
   #  time.timeZone = "Asia/Kolkata";
-  time.timeZone = "America/New_York";
+  services.automatic-timezoned.enable = true;
+  services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
   i18n.defaultLocale = "en_IN";
 
   i18n.extraLocaleSettings = {
@@ -96,7 +97,7 @@ in
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -135,6 +136,8 @@ in
       "networkmanager"
       "wheel"
       "audio"
+      "kvm"
+      "libvirtd"
     ];
     packages = with pkgs; [ ];
   };
@@ -142,9 +145,9 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   services.logind.extraConfig = ''
-    IdleActionSec = 300;
-    IdleAction = lock;
-    powerKey = "ignore";
+    IdleActionSec=300
+    IdleAction=lock
+    HandlePowerKey=ignore
   '';
 
   nixpkgs.config.allowUnfree = true;
@@ -175,6 +178,7 @@ in
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
+    libvirtd.enable = true;
   };
 
   services.postgresql = {

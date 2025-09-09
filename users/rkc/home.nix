@@ -79,6 +79,7 @@ in
       hyprshot
       hyprpaper
       distrobox
+      cheese
       jq
       localstack
     ]
@@ -137,7 +138,6 @@ in
       pkgs-old.zoom-us
       obs-studio
       slack
-      jetbrains.idea-community
       telegram-desktop
       dbeaver-bin
       pinta
