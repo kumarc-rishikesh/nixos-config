@@ -3,7 +3,6 @@
     "$mod" = "SUPER";
     "$terminal" = "kitty";
     exec-once = [ "waybar & hyprpaper & clipse -listen &" ];
-    monitor = ",preferred,auto,1.0";
     windowrulev2 = [
       "float, class:(clipse)"
       "size 622 652, class:(clipse)"
@@ -82,6 +81,8 @@
 
   };
   extraConfig = ''
+    monitor = eDP-1, preferred, autoright, 1
+    monitor = HDMI-A-1, preferred, auto-left, 1
     general {
         gaps_in = 2
         gaps_out = 1
