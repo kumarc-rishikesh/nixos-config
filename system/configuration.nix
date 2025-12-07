@@ -122,7 +122,6 @@ in
     ];
     config.common.default = "*";
   };
-
   services.libinput = {
     enable = true;
   };
