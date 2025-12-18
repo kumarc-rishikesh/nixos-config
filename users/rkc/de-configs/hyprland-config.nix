@@ -9,9 +9,9 @@
       "float, class:(nmtui)"
       "size 400 400, class:(nmtui)"
       "move 100%-400, class:(nmtui)"
-      "float, class:(bluetuith)"
-      "size 400 400, class:(bluetuith)"
-      "move 100%-400, class:(bluetuith)"
+      "float, class:(org.pipewire.Helvum)"
+      "size 800 600, class:(org.pipewire.Helvum)"
+      "center, class:(org.pipewire.Helvum)"
     ];
     bind = [
       "$mod SHIFT, C, killactive,"
@@ -24,8 +24,8 @@
       "$mod, C, exec, rofi -show calc"
       "$mod, B, exec, zen"
       "$mod SHIFT, B, exec, brave"
-      ", Print, exec, hyprshot -m region --clipboard-only"
-      "$mod, Print, exec, hyprshot -m region"
+      "$mod, S,  exec, hyprshot -m region --clipboard-only"
+      "$mod SHIFT, S, exec, hyprshot -m region"
       "$mod SHIFT, Q, exec, hyprctl dispatch exit"
       #window nav
       "$mod, left, movefocus, l"
@@ -56,7 +56,7 @@
       "$mod SHIFT, 0, movetoworkspace, 10"
       #special
       "$mod, S, togglespecialworkspace, magic"
-      "$mod SHIFT, S, movetoworkspace, special:magic"
+      "$mod SHIFT, Z, movetoworkspace, special:magic"
       "$mod, V, exec, kitty --class clipse -e clipse"
     ];
     bindm = [

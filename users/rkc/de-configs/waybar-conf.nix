@@ -138,6 +138,17 @@
         font-weight: bold;
     }
 
+    #custom-gpu {
+        background: #282828;
+        color: #83A598;
+        border-radius: 16px;
+        margin: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+        padding: 0px 10px 0px 10px;
+        font-weight: bold;
+    }
+
     #disk {
         background-color: #282828;
         /*color: #8EC07C;*/
@@ -165,6 +176,7 @@
         "pulseaudio"
         "network"
         "cpu"
+        "custom/gpu"
         "memory"
         "battery"
         "clock"
@@ -209,6 +221,12 @@
       memory = {
         format = "{}% ";
       };
+      "custom/gpu" = {
+        exec = "cat /sys/class/drm/card1/device/gpu_busy_percent";
+        format = "{}% 󰢮";
+        interval = 2;
+        tooltip = false;
+      };
       network = {
         interval = 1;
         format-disconnected = "Disconnected ⚠";
@@ -236,7 +254,7 @@
         format-muted = " {format_source}";
         format-source = "{volume}% ";
         format-source-muted = "";
-        on-click = "kitty --class bluetuith -e bluetuith";
+        on-click = "pwvucontrol";
       };
     }
   ];

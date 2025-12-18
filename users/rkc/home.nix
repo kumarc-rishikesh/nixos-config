@@ -81,6 +81,7 @@ in
       cheese
       jq
       localstack
+      pwvucontrol
     ]
     ++ [
       nodejs
