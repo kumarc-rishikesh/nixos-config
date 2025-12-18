@@ -81,8 +81,7 @@
 
   };
   extraConfig = ''
-    monitor = eDP-1, preferred, autoright, 1
-    monitor = HDMI-A-1, preferred, auto-left, 1
+    monitor = , preferred, auto, 1
     general {
         gaps_in = 2
         gaps_out = 1

@@ -16,14 +16,14 @@ let
   nixvim = import (
     builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
-      ref = "nixos-24.11";
+      ref = "nixos-25.11";
     }
   );
   zen = inputs.zen-browser.packages.${system}.default;
 in
 {
   imports = [
-    nixvim.homeManagerModules.nixvim
+    nixvim.homeModules.nixvim
   ];
   home.username = "rkc";
   home.homeDirectory = "/home/rkc";
@@ -54,7 +54,6 @@ in
       alsa-utils
       ranger
       neofetch
-      vim
       wget
       bc
       git
@@ -88,7 +87,6 @@ in
       esbuild
       yarn
       nodePackages.typescript-language-server
-      nodePackages.npm
       rustc
       rust-analyzer
       rustfmt
@@ -256,9 +254,8 @@ in
 
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
     plugins = [
-      (pkgs.rofi-calc.override { rofi-unwrapped = pkgs.rofi-wayland-unwrapped; })
+      pkgs.rofi-calc
       pkgs.rofi-power-menu
     ];
     extraConfig = {

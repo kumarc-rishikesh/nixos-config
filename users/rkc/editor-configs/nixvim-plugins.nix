@@ -59,12 +59,14 @@
   lsp-status.enable = true;
   neo-tree = {
     enable = true;
-    enableGitStatus = true;
-    enableRefreshOnWrite = true;
+    settings = { 
+      enable_git_status = true;
+      enable_refresh_on_write = true;
+    };
   };
   web-devicons.enable = true;
   nvim-autopairs.enable = true;
-  nvim-colorizer.enable = true;
+  colorizer.enable = true;
   todo-comments.enable = true;
   gitsigns.enable = true;
   indent-blankline.enable = true;

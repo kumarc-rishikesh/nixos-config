@@ -5,7 +5,7 @@
   ...
 }:
 let
-  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
   hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
   agenix = inputs.agenix;
 in
@@ -143,11 +143,10 @@ in
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  services.logind.extraConfig = ''
-    IdleActionSec=300
-    IdleAction=lock
-    HandlePowerKey=ignore
-  '';
+  services.logind.settings.Login = {
+    IdleActionSec=300;
+    IdleAction="lock";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -193,5 +192,5 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
