@@ -62,7 +62,7 @@
     enable = true;
     settings = {
       enable_git_status = true;
-      enable_refresh_on_write = true;
+      enable_refresh_on_write = false;
     };
   };
   web-devicons.enable = true;

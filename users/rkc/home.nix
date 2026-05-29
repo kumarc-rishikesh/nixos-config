@@ -52,7 +52,6 @@ in
       alacritty
       feh
       alsa-utils
-      ranger
       neofetch
       wget
       bc
@@ -286,7 +285,26 @@ in
 
   programs.nixvim = nixvim-config.settings;
 
-  home.stateVersion = "24.11";
+  programs.yazi = {
+    enable = true;
+    plugins = {
+      inherit (pkgs.yaziPlugins) full-border;
+    };
+    initLua = ''
+      require("full-border"):setup()
+    '';
+    flavors = {
+      inherit (pkgs.yaziPlugins) nord;
+    };
+    theme = {
+      flavor = {
+        dark = "nord";
+        light = "nord";
+      };
+    };
+  };
+
+  home.stateVersion = "25.11";
   nixpkgs.config.allowUnfree = true;
 
 }
