@@ -34,6 +34,7 @@
       "<leader>k" = "goto_prev";
     };
   };
+  diffview.enable = true;
   cmp = {
     enable = true;
     autoEnableSources = true;
@@ -59,7 +60,7 @@
   lsp-status.enable = true;
   neo-tree = {
     enable = true;
-    settings = { 
+    settings = {
       enable_git_status = true;
       enable_refresh_on_write = true;
     };

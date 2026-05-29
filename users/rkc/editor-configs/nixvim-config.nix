@@ -11,6 +11,8 @@ in
       enable = true;
       settings = {
         palette_overrides = {
+          contrast_dark = "hard";
+          dark0 = "#1a1a1a";
           bright_blue = "#5476b2";
           bright_purple = "#fb4934";
           dark1 = "#323232";
@@ -34,6 +36,12 @@ in
       expandtab = true;
       smartindent = true;
       pumheight = 10;
+    };
+    diagnostic.settings = {
+      virtual_lines = {
+        current_line = true;
+      };
+      virtual_text = false;
     };
     plugins = nixvim-plugins;
     keymaps = nixvim-keymaps;

@@ -20,9 +20,6 @@
       nixpkgs-unstable,
       nixpkgs-old,
       home-manager,
-      zen-browser,
-      agenix,
-      hyprland,
       ...
     }@inputs:
     let

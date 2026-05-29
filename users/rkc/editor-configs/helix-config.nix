@@ -2,7 +2,7 @@
   settings = {
     enable = true;
     settings = {
-      theme = "gruvbox_dark_hard";
+      theme = "merionette";
       editor = {
         lsp.display-messages = true;
       };

@@ -279,6 +279,9 @@ in
     sessionVariables = {
       ANDROID_HOME = "~/Android/Sdk/";
     };
+    shellAliases = {
+      apply-home-manager-config = "cd ~/.dotfiles && home-manager switch --impure --flake .#rkc";
+    };
   };
 
   programs.nixvim = nixvim-config.settings;

@@ -91,6 +91,9 @@ in
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
+  programs.bash.shellAliases = {
+    apply-nixos-config = "cd ~/.dotfiles && sudo nixos-rebuild switch --flake .#nixos";
+  };
 
   services.printing.enable = true;
 
@@ -144,8 +147,8 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   services.logind.settings.Login = {
-    IdleActionSec=300;
-    IdleAction="lock";
+    IdleActionSec = 300;
+    IdleAction = "lock";
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -179,16 +182,23 @@ in
     libvirtd.enable = true;
   };
 
-  services.postgresql = {
-    enable = false;
-    ensureDatabases = [ "mydatabase" ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
-    '';
+  services = {
+    postgresql = {
+      enable = false;
+      ensureDatabases = [ "mydatabase" ];
+      authentication = pkgs.lib.mkOverride 10 ''
+        #type database  DBuser  auth-method
+        local all       all     trust
+      '';
+    };
+    clickhouse = {
+      enable = false;
+    };
+    ollama = {
+      enable = true;
+      acceleration = "vulkan";
+    };
   };
-
-  services.clickhouse.enable = false;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

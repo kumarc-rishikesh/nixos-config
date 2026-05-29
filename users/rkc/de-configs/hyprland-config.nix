@@ -55,7 +55,6 @@
       "$mod SHIFT, 9, movetoworkspace, 9"
       "$mod SHIFT, 0, movetoworkspace, 10"
       #special
-      "$mod, S, togglespecialworkspace, magic"
       "$mod SHIFT, Z, movetoworkspace, special:magic"
       "$mod, V, exec, kitty --class clipse -e clipse"
     ];
