@@ -1,4 +1,18 @@
+{ pkgs }:
 {
+  haskell-tools = {
+    enable = true;
+    hlsPackage = pkgs.haskellPackages.haskell-language-server;
+    settings = {
+      hls = {
+        default_settings = {
+          haskell = {
+            formattingProvider = "fourmolu";
+          };
+        };
+      };
+    };
+  };
   lualine.enable = true;
   lsp = {
     enable = true;
@@ -10,10 +24,6 @@
       };
       nixd.enable = true;
       metals.enable = true;
-      hls = {
-        enable = true;
-        installGhc = false;
-      };
       pylsp.enable = true;
       elixirls.enable = true;
       html.enable = true;
@@ -73,7 +83,7 @@
   indent-blankline.enable = true;
   treesitter = {
     enable = true;
-    folding = false;
+    folding.enable = false;
     settings.highlight.enable = true;
   };
   telescope = {

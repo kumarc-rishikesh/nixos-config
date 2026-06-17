@@ -16,7 +16,7 @@ let
   nixvim = import (
     builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
-      ref = "nixos-25.11";
+      ref = "nixos-26.05";
     }
   );
   zen = inputs.zen-browser.packages.${system}.default;
@@ -52,7 +52,7 @@ in
       alacritty
       feh
       alsa-utils
-      neofetch
+      fastfetch
       wget
       bc
       git
@@ -83,20 +83,16 @@ in
       pwvucontrol
     ]
     ++ [
-      nodejs
-      esbuild
-      yarn
-      nodePackages.typescript-language-server
       rustc
       rust-analyzer
       rustfmt
       cargo
-      python311
-      python311.pkgs.pip
+      python314
+      python314.pkgs.pip
       poetry
-      python311Packages.python-lsp-server
+      python314Packages.python-lsp-server
       nil
-      nixfmt-rfc-style
+      nixfmt
       cmake
       gcc
       haskellPackages.haskell-language-server
@@ -231,12 +227,13 @@ in
   };
 
   services.hypridle = {
-    enable = true;
+    enable = false;
     settings = {
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
         lock_cmd = "hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
       };
       listener = [
         {
@@ -248,7 +245,32 @@ in
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
+        {
+          timeout = 600;
+          on-timeout = "systemctl suspend";
+        }
       ];
+    };
+  };
+
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      {
+        timeout = 300;
+        command = "${pkgs.swaylock}/bin/swaylock -f";
+      }
+      {
+        timeout = 600;
+        command = "systemctl suspend";
+      }
+      {
+        timeout = 900;
+        command = "systemctl hibernate";
+      }
+    ];
+    events = {
+      before-sleep = "${pkgs.swaylock}/bin/swaylock -f";
     };
   };
 
@@ -304,7 +326,7 @@ in
     };
   };
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
   nixpkgs.config.allowUnfree = true;
 
 }

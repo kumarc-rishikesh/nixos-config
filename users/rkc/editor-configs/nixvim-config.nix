@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  nixvim-plugins = import ./nixvim-plugins.nix;
+  nixvim-plugins = import ./nixvim-plugins.nix { inherit pkgs; };
   nixvim-keymaps = import ./nixvim-keymaps.nix;
 in
 {

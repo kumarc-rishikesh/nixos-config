@@ -6,7 +6,7 @@
 }:
 let
   tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
-  hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
+  wayland-session = "${pkgs.niri}/share/wayland-sessions";
   agenix = inputs.agenix;
 in
 {
@@ -14,6 +14,7 @@ in
     # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
     inputs.agenix.nixosModules.default
+    ./hibernation.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -56,7 +57,7 @@ in
     enable = true;
     settings = {
       default_session = {
-        command = "${tuigreet} --time --remember --remember-session --sessions ${hyprland-session}";
+        command = "${tuigreet} --time --remember --remember-session --sessions ${wayland-session}";
         user = "greeter";
       };
     };
@@ -112,11 +113,13 @@ in
   };
 
   programs.hyprland = {
-    enable = true;
+    enable = false;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage =
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
+
+  programs.niri.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -146,9 +149,12 @@ in
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  services.logind.settings.Login = {
-    IdleActionSec = 300;
-    IdleAction = "lock";
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+
+  base.hibernation = {
+    enable = true;
+    device = "/dev/disk/by-label/swap";
+    hibernateAfterSleepDelay = "30m";
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -196,11 +202,11 @@ in
     };
     ollama = {
       enable = true;
-      acceleration = "vulkan";
+      package = pkgs.ollama-rocm;
     };
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
