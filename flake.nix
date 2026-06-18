@@ -13,6 +13,7 @@
     agenix.url = "github:ryantm/agenix";
     hyprland.url = "github:hyprwm/Hyprland";
     nix-colors.url = "github:misterio77/nix-colors";
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   outputs =
@@ -21,6 +22,7 @@
       nixpkgs-unstable,
       nixpkgs-old,
       home-manager,
+      niri,
       nix-colors,
       ...
     }@inputs:
@@ -61,6 +63,7 @@
         inherit pkgs;
         modules = [
           ./users/rkc/home.nix
+          niri.homeModules.config
           nix-colors.homeManagerModules.default
         ];
         extraSpecialArgs = {

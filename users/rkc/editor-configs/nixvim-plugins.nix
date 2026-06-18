@@ -66,7 +66,15 @@
   comment.enable = true;
   undotree.enable = true;
   fidget.enable = true;
-  lsp-format.enable = true;
+  conform-nvim = {
+    enable = true;
+    settings = {
+      format_on_save = {
+        timeout_ms = 500;
+        lsp_format = "fallback";
+      };
+    };
+  };
   lsp-status.enable = true;
   neo-tree = {
     enable = true;

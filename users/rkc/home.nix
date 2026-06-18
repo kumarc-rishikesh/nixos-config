@@ -5,6 +5,7 @@
   inputs,
   system,
   anyrun,
+  nix-colors,
   ...
 }:
 let
@@ -27,23 +28,23 @@ in
   ];
   home.username = "rkc";
   home.homeDirectory = "/home/rkc";
-  nixpkgs.overlays = [
-    (final: prev: {
-      # spark = prev.spark.overrideAttrs (oldAttrs: {
-      #   postInstall = ''
-      #     mkdir -p $out/share/doc/spark/
-      #     mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
-      #   '';
-      # });
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  # spark = prev.spark.overrideAttrs (oldAttrs: {
+  #   postInstall = ''
+  #     mkdir -p $out/share/doc/spark/
+  #     mv $out/LICENSE $out/NOTICE $out/share/doc/spark/
+  #   '';
+  # });
 
-      scala = prev.scala.overrideAttrs (oldAttrs: {
-        postInstall = ''
-          mkdir -p $out/share/doc/scala/
-          mv $out/LICENSE $out/NOTICE $out/share/doc/scala/
-        '';
-      });
-    })
-  ];
+  #   scala = prev.scala.overrideAttrs (oldAttrs: {
+  #     postInstall = ''
+  #       mkdir -p $out/share/doc/scala/
+  #       mv $out/LICENSE $out/NOTICE $out/share/doc/scala/
+  #     '';
+  #   });
+  # })
+  # ];
   home.packages =
     with pkgs;
     [
@@ -105,7 +106,7 @@ in
       stack
       ghc
       miller
-      scala_2_13
+      scala
       jdk11
       # spark
       sbt
@@ -136,14 +137,17 @@ in
       dbeaver-bin
       pinta
       zen
+      nixvim
     ];
 
   programs.home-manager = {
     enable = true;
   };
 
+  colorScheme = nix-colors.colorSchemes.gruvbox-dark-hard;
+
   programs.kitty = {
-    enable = true;
+    enable = false;
     themeFile = "Argonaut";
     keybindings = {
       "kitty_mod+enter" = "launch --cwd=current --location=vsplit --bias=30";
@@ -214,12 +218,16 @@ in
   };
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     settings = hyprland-config.settings;
     extraConfig = hyprland-config.extraConfig;
     sourceFirst = true;
     systemd.variables = [ "--all" ];
   };
+
+  # programs.niri.settings = {
+  #
+  # };
 
   programs.hyprlock = {
     enable = true;
@@ -258,7 +266,7 @@ in
     timeouts = [
       {
         timeout = 300;
-        command = "${pkgs.swaylock}/bin/swaylock -f";
+        command = "${pkgs.hyprlock}/bin/hyprlock";
       }
       {
         timeout = 600;
@@ -270,7 +278,7 @@ in
       }
     ];
     events = {
-      before-sleep = "${pkgs.swaylock}/bin/swaylock -f";
+      before-sleep = "${pkgs.hyprlock}/bin/hyprlock";
     };
   };
 
@@ -284,7 +292,7 @@ in
       display-drun = "Applications";
       modi = "run,calc,power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu,drun,filebrowser";
     };
-    theme = "DarkBlue";
+    theme = "gruvbox-dark-hard";
   };
 
   programs.helix = helix-config.settings;
