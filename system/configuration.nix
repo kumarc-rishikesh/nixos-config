@@ -8,6 +8,10 @@ let
   tuigreet = "${pkgs.tuigreet}/bin/tuigreet";
   wayland-session = "${pkgs.niri}/share/wayland-sessions";
   agenix = inputs.agenix;
+  wallpaperPkg = inputs.thinknix-wallpaper.packages.${pkgs.system}.default;
+  wallpaper = pkgs.runCommand "thinknix-d.png" { buildInputs = [ pkgs.resvg ]; } ''
+    resvg ${wallpaperPkg}/share/backgrounds/gnome/thinknix-d.svg $out
+  '';
 in
 {
   imports = [
@@ -121,18 +125,18 @@ in
 
   programs.niri.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    config.common.default = "*";
-  };
-  services.libinput = {
-    enable = true;
-  };
-
-  fonts.packages = with pkgs; [ meslo-lgs-nf ];
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-gtk
+  #   ];
+  #   config.common.default = "*";
+  # };
+  # services.libinput = {
+  #   enable = true;
+  # };
+  #
+  # fonts.packages = with pkgs; [ meslo-lgs-nf ];
 
   users.users.rkc = {
     isNormalUser = true;
@@ -207,6 +211,26 @@ in
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  stylix = {
+    enable = true;
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+
+    image = wallpaper;
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.meslo-lg;
+        name = "JetBrainsMono Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs.inter;
+        name = "Inter";
+      };
+      sizes.terminal = 13;
+    };
+  };
 
   system.stateVersion = "26.05";
 }

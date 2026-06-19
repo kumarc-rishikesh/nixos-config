@@ -2,7 +2,6 @@
   settings = {
     enable = true;
     settings = {
-      theme = "merionette";
       editor = {
         lsp.display-messages = true;
       };

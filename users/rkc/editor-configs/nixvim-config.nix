@@ -9,18 +9,18 @@ in
     viAlias = true;
     colorschemes.gruvbox = {
       enable = true;
-      settings = {
-        palette_overrides = {
-          contrast_dark = "hard";
-          dark0 = "#1a1a1a";
-          bright_blue = "#5476b2";
-          bright_purple = "#fb4934";
-          dark1 = "#323232";
-          dark2 = "#383330";
-          dark3 = "#323232";
-        };
-        terminal_colors = true;
-      };
+      # settings = {
+      #   palette_overrides = {
+      #     contrast_dark = "hard";
+      #     dark0 = "#1a1a1a";
+      #     bright_blue = "#5476b2";
+      #     bright_purple = "#fb4934";
+      #     dark1 = "#323232";
+      #     dark2 = "#383330";
+      #     dark3 = "#323232";
+      #   };
+      #   terminal_colors = true;
+      # };
     };
     globals = {
       mapleader = "\ ";

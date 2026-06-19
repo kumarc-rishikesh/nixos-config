@@ -4,8 +4,8 @@
   pkgs-old,
   inputs,
   system,
+  config,
   anyrun,
-  nix-colors,
   ...
 }:
 let
@@ -21,6 +21,11 @@ let
     }
   );
   zen = inputs.zen-browser.packages.${system}.default;
+  wallpaperPkg = inputs.thinknix-wallpaper.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  wallpaper = pkgs.runCommand "thinknix-d.png" { buildInputs = [ pkgs.resvg ]; } ''
+    resvg ${wallpaperPkg}/share/backgrounds/gnome/thinknix-d.svg $out
+  '';
+  niri-config = import ./de-configs/niri-config.nix { inherit wallpaper; };
 in
 {
   imports = [
@@ -50,7 +55,6 @@ in
     [
       busybox
       bluetuith
-      alacritty
       feh
       alsa-utils
       fastfetch
@@ -75,8 +79,11 @@ in
       zlib
       zlib.dev
       lldb
-      hyprshot
-      hyprpaper
+      # hyprshot
+      grim
+      slurp
+      # hyprpaper
+      swaybg
       distrobox
       cheese
       jq
@@ -144,8 +151,6 @@ in
     enable = true;
   };
 
-  colorScheme = nix-colors.colorSchemes.gruvbox-dark-hard;
-
   programs.kitty = {
     enable = false;
     themeFile = "Argonaut";
@@ -155,30 +160,36 @@ in
     settings.confirm_os_window_close = 0;
   };
 
+  programs.alacritty = {
+    enable = true;
+    settings.cursor.style.shape = "block";
+  };
+
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
     size = 20;
   };
-
-  gtk = {
-    enable = true;
-    theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Grey-Darkest";
-    };
-
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-  };
+  #
+  # gtk = {
+  #   enable = true;
+  #   theme = {
+  #     package = pkgs.flat-remix-gtk;
+  #     name = "Flat-Remix-GTK-Grey-Darkest";
+  #   };
+  #
+  #   iconTheme = {
+  #     package = pkgs.adwaita-icon-theme;
+  #     name = "Adwaita";
+  #   };
+  # };
+  #
 
   services.playerctld.enable = true;
 
   programs.waybar = {
-    enable = true;
+    enable = false;
     settings = waybar-config.settings;
     style = waybar-config.style;
   };
@@ -192,30 +203,26 @@ in
         offset = "30x50";
         origin = "top-right";
         transparency = 90;
-        frame_color = "#000000";
-        font = "Droid Sans 9";
       };
 
       urgency_normal = {
-        background = "#9ea0a3";
-        foreground = "#000000";
         timeout = 10;
       };
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = "off";
-      splash = false;
-      splash_offset = 2.0;
-
-      preload = [ "~/Pictures/thinknix-d.jpg" ];
-
-      wallpaper = [ ",~/Pictures/thinknix-d.jpg" ];
-    };
-  };
+  # services.hyprpaper = {
+  #   enable = true;
+  #   settings = {
+  #     ipc = "off";
+  #     splash = false;
+  #     splash_offset = 2.0;
+  #
+  #     preload = [ "~/Pictures/thinknix-d.jpg" ];
+  #
+  #     wallpaper = [ ",~/Pictures/thinknix-d.jpg" ];
+  #   };
+  # };
 
   wayland.windowManager.hyprland = {
     enable = false;
@@ -225,9 +232,7 @@ in
     systemd.variables = [ "--all" ];
   };
 
-  # programs.niri.settings = {
-  #
-  # };
+  programs.niri.settings = niri-config.settings;
 
   programs.hyprlock = {
     enable = true;
@@ -331,6 +336,15 @@ in
         dark = "nord";
         light = "nord";
       };
+    };
+  };
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    image = wallpaper;
+    targets = {
+      rofi.enable = false;
     };
   };
 

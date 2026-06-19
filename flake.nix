@@ -12,8 +12,12 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     agenix.url = "github:ryantm/agenix";
     hyprland.url = "github:hyprwm/Hyprland";
-    nix-colors.url = "github:misterio77/nix-colors";
     niri.url = "github:sodiboo/niri-flake";
+    stylix = {
+      url = "github:nix-community/stylix/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    thinknix-wallpaper.url = "github:zebreus/nixos-dark-wallpaper";
   };
 
   outputs =
@@ -23,7 +27,7 @@
       nixpkgs-old,
       home-manager,
       niri,
-      nix-colors,
+      stylix,
       ...
     }@inputs:
     let
@@ -52,7 +56,10 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-          modules = [ ./system/configuration.nix ];
+          modules = [
+            ./system/configuration.nix
+            stylix.nixosModules.stylix
+          ];
           specialArgs = {
             inherit inputs;
           };
@@ -64,7 +71,7 @@
         modules = [
           ./users/rkc/home.nix
           niri.homeModules.config
-          nix-colors.homeManagerModules.default
+          stylix.homeModules.stylix
         ];
         extraSpecialArgs = {
           inherit
@@ -72,7 +79,6 @@
             system
             pkgs-unstable
             pkgs-old
-            nix-colors
             ;
         };
       };
