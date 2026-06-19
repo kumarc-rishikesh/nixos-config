@@ -25,7 +25,7 @@ let
   wallpaper = pkgs.runCommand "thinknix-d.png" { buildInputs = [ pkgs.resvg ]; } ''
     resvg ${wallpaperPkg}/share/backgrounds/gnome/thinknix-d.svg $out
   '';
-  niri-config = import ./de-configs/niri-config.nix { inherit wallpaper; };
+  niri-config = import ./de-configs/niri-config.nix { inherit config wallpaper; };
 in
 {
   imports = [

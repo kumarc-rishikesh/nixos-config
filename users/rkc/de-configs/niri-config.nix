@@ -1,4 +1,4 @@
-{ wallpaper }:
+{ config, wallpaper }:
 {
   settings = {
     prefer-no-csd = true;
@@ -26,13 +26,19 @@
       { command = [ "waybar" ]; }
     ];
     layout = {
-      default-column-width.proportion = 0.45;
+      default-column-width.proportion = 0.5;
       gaps = 16;
       struts = {
-        left = 8;
-        right = 8;
-        top = 8;
-        bottom = 8;
+        left = 2;
+        right = 2;
+        top = 2;
+        bottom = 2;
+      };
+      focus-ring = {
+        enable = true;
+        width = 3;
+        active.color = "#${config.lib.stylix.colors.base09}";
+        inactive.color = "gray";
       };
     };
 

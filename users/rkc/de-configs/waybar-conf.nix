@@ -51,14 +51,6 @@
       border: solid 0px #f4d9e1;
     }
 
-    #tray {
-        background: transparent;
-        margin: 5px 5px 5px 5px;
-        border-radius: 16px;
-        padding: 0px 5px;
-        /*border-right: solid 1px #282738;*/
-    }
-
     #clock {
         background: #11111D; /* rgba(26,26,26,.9); */
         padding: 0 1rem;
@@ -169,8 +161,8 @@
       margin-bottom = 0;
       modules-center = [ ];
       modules-left = [
-        "hyprland/workspaces"
-        "hyprland/window"
+        "niri/workspaces"
+        "niri/window"
       ];
       modules-right = [
         "pulseaudio"
@@ -180,19 +172,12 @@
         "memory"
         "battery"
         "clock"
-        "tray"
       ];
-      "tray" = {
-        "icon-size" = 18;
-        "spacing" = 5;
-        "show-passive-items" = true;
+      "niri/workspaces" = {
+        on-scroll-up = "niri msg action focus-workspace-up";
+        on-scroll-down = "niri msg action focus-workspace-down";
       };
 
-      "hyprland/workspaces" = {
-        all-outputs = true;
-        on-scroll-up = "hyprctl dispatch workspace e+1";
-        on-scroll-down = "hyprctl dispatch workspace e-1";
-      };
       battery = {
         format = "{capacity}% {icon}";
         format-alt = "{time} {icon}";
