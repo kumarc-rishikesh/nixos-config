@@ -14,8 +14,17 @@
           "fill"
         ];
       }
+      {
+        command = [
+          "wl-paste"
+          "--watch"
+          "cliphist"
+          "store"
+          "&"
+        ];
+      }
+      { command = [ "waybar" ]; }
     ];
-
     layout = {
       default-column-width.proportion = 0.45;
       gaps = 16;
@@ -56,11 +65,9 @@
       "Mod+B".action.spawn = [ "zen-beta" ];
       "Mod+Shift+B".action.spawn = [ "brave" ];
       "Mod+V".action.spawn = [
-        "alacritty"
-        "--class"
-        "clipse"
-        "-e"
-        "clipse"
+        "sh"
+        "-c"
+        "cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
       ];
       "Mod+Shift+L".action.spawn = [ "hyprlock" ];
 

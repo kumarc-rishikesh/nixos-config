@@ -72,6 +72,7 @@ in
       playerctl
       libnotify
       ripgrep
+      cliphist
       clipse
       wl-clipboard
       ngrok
@@ -189,9 +190,13 @@ in
   services.playerctld.enable = true;
 
   programs.waybar = {
-    enable = false;
+    enable = true;
     settings = waybar-config.settings;
     style = waybar-config.style;
+  };
+
+  programs.noctalia = {
+    enable = true;
   };
 
   services.dunst = {

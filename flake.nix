@@ -17,6 +17,10 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     thinknix-wallpaper.url = "github:zebreus/nixos-dark-wallpaper";
   };
 
@@ -28,6 +32,7 @@
       home-manager,
       niri,
       stylix,
+      noctalia,
       ...
     }@inputs:
     let
@@ -72,6 +77,7 @@
           ./users/rkc/home.nix
           niri.homeModules.config
           stylix.homeModules.stylix
+          noctalia.homeModules.default
         ];
         extraSpecialArgs = {
           inherit
