@@ -237,7 +237,7 @@
           portable = "";
         };
         format-muted = " {format_source}";
-        format-source = "{volume}% ";
+        format-source = "    {volume}% ";
         format-source-muted = "";
         on-click = "pwvucontrol";
       };
