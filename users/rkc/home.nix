@@ -195,10 +195,6 @@ in
     style = waybar-config.style;
   };
 
-  programs.noctalia = {
-    enable = true;
-  };
-
   services.dunst = {
     enable = true;
     settings = {

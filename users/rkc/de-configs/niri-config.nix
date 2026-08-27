@@ -68,6 +68,7 @@
         "power-menu"
       ];
       "Mod+R".action.switch-preset-column-width = { };
+      "Mod+Shift+R".action.fullscreen-window = { };
       "Mod+B".action.spawn = [ "zen-beta" ];
       "Mod+Shift+B".action.spawn = [ "brave" ];
       "Mod+V".action.spawn = [

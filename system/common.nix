@@ -15,10 +15,7 @@ let
 in
 {
   imports = [
-    # Include the results of the hardware scan.
-    /etc/nixos/hardware-configuration.nix
     inputs.agenix.nixosModules.default
-    ./hibernation.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -27,7 +24,6 @@ in
 
   hardware.enableRedistributableFirmware = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager = {
     enable = true;
     wifi.powersave = true;
@@ -97,7 +93,7 @@ in
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
   programs.bash.shellAliases = {
-    apply-nixos-config = "cd ~/.dotfiles && sudo nixos-rebuild switch --flake .#nixos";
+    apply-nixos-config = "cd ~/.dotfiles && sudo nixos-rebuild switch --flake .#$(hostname)";
   };
 
   services.printing.enable = true;
@@ -153,14 +149,6 @@ in
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-
-  base.hibernation = {
-    enable = true;
-    device = "/dev/disk/by-label/swap";
-    hibernateAfterSleepDelay = "30m";
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = [
@@ -210,7 +198,6 @@ in
     };
     ollama = {
       enable = true;
-      package = pkgs.ollama-rocm;
     };
   };
 

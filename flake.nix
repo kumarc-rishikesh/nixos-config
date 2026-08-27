@@ -62,12 +62,18 @@
         nixos = lib.nixosSystem {
           inherit system;
           modules = [
-            ./system/configuration.nix
+            ./system/hosts/desktop
             stylix.nixosModules.stylix
           ];
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
+        };
+        laptop = lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./system/hosts/laptop
+            stylix.nixosModules.stylix
+          ];
+          specialArgs = { inherit inputs; };
         };
       };
 
