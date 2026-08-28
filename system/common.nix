@@ -93,7 +93,7 @@ in
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
   programs.bash.shellAliases = {
-    apply-nixos-config = "cd ~/.dotfiles && sudo nixos-rebuild switch --flake .#$(hostname)";
+    apply-nixos-config = "cd ~/.dotfiles && sudo nixos-rebuild switch --flake .#${config.networking.hostName}";
   };
 
   services.printing.enable = true;

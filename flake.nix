@@ -59,10 +59,11 @@
     {
 
       nixosConfigurations = {
-        nixos = lib.nixosSystem {
+        desktop = lib.nixosSystem {
           inherit system;
           modules = [
             ./system/hosts/desktop
+            niri.nixosModules.niri
             stylix.nixosModules.stylix
           ];
           specialArgs = { inherit inputs; };
@@ -71,6 +72,7 @@
           inherit system;
           modules = [
             ./system/hosts/laptop
+            niri.nixosModules.niri
             stylix.nixosModules.stylix
           ];
           specialArgs = { inherit inputs; };

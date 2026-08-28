@@ -9,7 +9,7 @@
     ../../hibernation.nix
   ];
 
-  networking.hostName = "nixos";
+  networking.hostName = "desktop";
 
   swapDevices = [ { device = "/dev/nvme0n1p4"; } ];
 
