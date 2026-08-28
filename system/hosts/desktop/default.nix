@@ -11,11 +11,11 @@
 
   networking.hostName = "nixos";
 
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+  swapDevices = [ { device = "/dev/nvme0n1p4"; } ];
 
   base.hibernation = {
     enable = true;
-    device = "/dev/disk/by-label/swap";
+    device = "/dev/nvme0n1p4";
     hibernateAfterSleepDelay = "30m";
   };
 
