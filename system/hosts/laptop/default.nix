@@ -3,7 +3,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../common.nix
-    ../../hibernation.nix
   ];
 
   networking.hostName = "laptop";
@@ -14,12 +13,10 @@
   security.pam.services.login.fprintAuth = true;
   security.pam.services.sudo.fprintAuth = true;
 
-  # Swap/hibernation: fill in once you know the laptop's swap device.
-  # If you set up a labeled swap partition the same way, this is identical:
-  # swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-  # base.hibernation = {
-  #   enable = true;
-  #   device = "/dev/disk/by-label/swap";
-  #   hibernateAfterSleepDelay = "30m";
-  # };
+  swapDevices = [ { device = "/dev/nvme0n1p3/swap"; } ];
+  hibernation = {
+    enable = true;
+    device = "/dev/nvme0n1p3/swap";
+    hibernateAfterSleepDelay = "30m";
+  };
 }
