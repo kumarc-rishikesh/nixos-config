@@ -203,6 +203,14 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      PermitRootLogin = "no";
+    };
+  };
+
   stylix = {
     enable = true;
     polarity = "dark";
