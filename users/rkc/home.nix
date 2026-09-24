@@ -145,6 +145,7 @@ in
       dbeaver-bin
       pinta
       zen
+      google-chrome
       nixvim
     ];
 
