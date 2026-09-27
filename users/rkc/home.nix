@@ -147,6 +147,7 @@ in
       zen
       google-chrome
       nixvim
+      kdePackages.dolphin
     ];
 
   programs.home-manager = {
